@@ -6,4 +6,4 @@ choose the best offer. <br>
 • Tech Stack: Reactjs, Nodejs, Expressjs, MongoDB
 <br>
 
-⚡Team Error404 : [Revanth](https://github.com/mani-revanth) , [Naveen](https://github.com/naveen-chokkapu) , [Kiran](https://github.com/kiranatmakuri516), [Avinash](https://github.com/avinash-doddi)
+⚡Team Error404 : [Revanth](https://github.com/mani-revanth) , [Naveen](https://github.com/naveen-chokkapu) , [Kiran](https://github.com/kiranatmakuri516), [Avinash](https://github.com/avinash-doddi) , [Arjun](https://github.com/ERROR404-WEB)
