@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Dashboard() {
+export default function Assist() {
   return (
     <div>
-        Dashboard
+      Assist
     </div>
   )
 }

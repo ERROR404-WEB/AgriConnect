@@ -1,8 +1,142 @@
-*{
-    margin: 0%;
-    padding: 0%;
+* {
+  margin: 0%;
+  padding: 0%;
 }
-.navbar{
-    height: 9vmin;
-    background-color: antiquewhite;
+.navbar {
+  height: 50px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.107);
+  margin-bottom: 10px;
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  margin-top: 5px;
+  width: 38px;
+  margin-right: 15px;
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+.search-input {
+  background-color: transparent;
+  padding: 9px;
+  border: none;
+  transition: width 3s ease-in-out;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 5px;
+  padding-left: 5px;
+  transition: width 3s ease-in-out;
+  background-color: rgba(0, 255, 21, 0.105);
+  margin: 2px;
+}
+.search-container:focus-within .search-input {
+  width: 220px;
+}
+.search-container:focus-within {
+  border: 2px solid rgba(0, 0, 0, 0.815);
+}
+.search-input:focus {
+  outline: none;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 20px;
+}
+.nav-link {
+  text-align: center;
+  margin-right: 15px;
+  padding-left: 7px;
+  padding-right: 7px;
+  margin-top: 5px;
+  /* transition: ease-in-out 1s; */
+}
+.nav-link p {
+  margin-top: 4px;
+  font-size: 12px;
+}
+.profile-pic {
+  width: 35px;
+  height: 35px;
+}
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  padding: 1px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+.nav-link:hover {
+  cursor: pointer;
+}
+
+.active {
+  color: black;
+}
+.activeu {
+  border-bottom: 2px solid rgb(0, 0, 0);
+}
+
+a {
+  text-decoration: none;
+}
+.grey {
+  color: rgb(48, 52, 52);
+}
+.black {
+  color: black;
+}
+a {
+  color: rgba(58, 177, 58, 0.667);
+}
+a:hover {
+  color: black;
+}
+
+.footer {
+  height: 50px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.107);
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  display: flex;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.nav-link2 {
+  text-align: center;
+  margin-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 5px;
+}
+.nav-link2 p {
+  font-size: 12px;
+}
+
+@media only screen and (max-width: 767px) {
+  .nav-link {
+    display: none;
+  }
+}
+@media only screen and (min-width: 767px) {
+  .footer {
+    display: none;
+  }
 }
