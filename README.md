@@ -5,4 +5,5 @@ their share in yield. <br>
 choose the best offer. <br>
 • Tech Stack: Reactjs, Nodejs, Expressjs, MongoDB
 
-edited
+
+Team : @naveen-chokkapu ,@avinash-doddi
