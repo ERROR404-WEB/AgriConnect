@@ -6,7 +6,10 @@ const userbioSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user' 
     },
-    pic:{
+    profilepic:{
+        type:String,
+    },
+    bannerpic:{
         type:String,
     },
     bio:{
