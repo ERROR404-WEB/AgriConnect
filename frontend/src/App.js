@@ -2,13 +2,15 @@
 import './App.css';
 import  Login from './components/Authentication/Login'
 import Signup from './components/Authentication/Signup'
-
+import Navbar from './components/Navbar/Navbar'
 function App() {
   return (
     <div className="App">
 
-    <Login />
-    <Signup />
+
+      <Navbar />
+      <Login /> 
+      <Signup />
 
     </div>
   );
