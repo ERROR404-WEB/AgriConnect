@@ -1,5 +1,8 @@
 
 import './App.css';
+
+import SignIn from './components/Authentication/SignIn';
+
 import Login from './components/Authentication/Login'
 import Signup from './components/Authentication/Signup'
 import Navbar from './components/Navbar/Navbar'
@@ -11,9 +14,13 @@ import Weather from './components/Weather/Weather'
 import Assist from './components/Assist/Assist'
 import { BrowserRouter as Router,  Route, Routes } from 'react-router-dom';
 
+
 function App() {
   return (
     <div className="App">
+
+
+//     <SignIn/>
 
       <Router>
         <Navbar />
@@ -30,6 +37,7 @@ function App() {
           </Routes>
         
       </Router>
+
 
     </div>
   );
