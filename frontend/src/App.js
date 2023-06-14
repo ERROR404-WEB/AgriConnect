@@ -5,7 +5,7 @@ import SignIn from './components/Authentication/SignIn';
 import SignUp2 from './components/Authentication/SignUp2'
 import SignUp1 from './components/Authentication/SignUp1'
 import Navbar from './components/Navbar/Navbar'
-import Posts from './components/Posts/Posts'
+import Posts from './components/Posts/posts'
 import Dashboard from './components/Dashboard/Dashboard'
 import Chat from './components/Chat/Chat'
 import Rooms from './components/Rooms/Rooms'
