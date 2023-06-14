@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function posts() {
+export default function Assist() {
   return (
     <div>
-      posts
+      Assist
     </div>
   )
 }
