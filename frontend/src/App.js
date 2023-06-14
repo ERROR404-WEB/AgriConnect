@@ -2,9 +2,8 @@
 import './App.css';
 
 import SignIn from './components/Authentication/SignIn';
-
-import Login from './components/Authentication/Login'
-import Signup from './components/Authentication/Signup'
+import SignUp2 from './components/Authentication/SignUp2'
+import SignUp1 from './components/Authentication/SignUp1'
 import Navbar from './components/Navbar/Navbar'
 import Posts from './components/Posts/Posts'
 import Dashboard from './components/Dashboard/Dashboard'
@@ -20,22 +19,23 @@ function App() {
     <div className="App">
 
 
-//     <SignIn/>
+
 
       <Router>
-        <Navbar />
         
+      <Navbar />
           <Routes>
             <Route exact path='/posts' element={<Posts />} />
-            <Route exact path='/login' element={<Login />} />
-            <Route exact path='/signup' element={<Signup />} />
+            <Route exact path='/signin' element={<SignIn />} />
+            <Route exact path='/signup1' element={<SignUp1 />} />
+            <Route exact path='/signup2' element={<SignUp2 />} />
             <Route exact path='/dashboard' element={<Dashboard />} />
             <Route exact path='/chat' element={<Chat />} />
             <Route exact path='/assist' element={<Assist />} />
             <Route exact path='/weather' element={<Weather />} />
             <Route exact path='/rooms' element={<Rooms />} />
           </Routes>
-        
+          
       </Router>
 
 

@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import SignIn from './SignIn';
 import SignUp2 from './SignUp2';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 const SignUp1 = () => {
     const [showSignUp, setShowSignIn] = useState(false);
     const [showSignUp2, setShowSignUp1] = useState(false);

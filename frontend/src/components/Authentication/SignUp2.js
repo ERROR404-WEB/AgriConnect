@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 const SignUp2 = () => {
   return (
     
