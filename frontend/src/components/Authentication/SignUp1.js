@@ -23,7 +23,7 @@ const SignUp1 = () => {
       <Form.Floating className="mb-3">
         <Form.Control
           id="floatingInputCustom"
-          type="number"
+          type="tel"
           placeholder="Mobile Number"
         />
         <label htmlFor="floatingInputCustom">Mobile Number</label>
