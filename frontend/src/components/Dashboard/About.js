@@ -13,7 +13,7 @@ export default function About() {
 
     return (
         <div>
-            <div className="bio">
+            <div className="bio my-5">
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Edit Bio</Modal.Title>

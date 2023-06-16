@@ -78,12 +78,13 @@ router.post('/createuser/details', fetchuser, async (req, res) => {
 
     try {
 
-        const { name, phone, state, district, village, pincode, email, profilepic, type } = req.body;
+        const { name, phone, state, city, village, pincode, email, profilepic, type ,address} = req.body;
         const updatedUser = {};
         if (name) { updatedUser.name = name };
         if (phone) { updatedUser.phone = phone };
         if (state) { updatedUser.state = state };
-        if (district) { updatedUser.district = district };
+        if (address) { updatedUser.address = address };
+        if (city) { updatedUser.city = city };
         if (village) { updatedUser.village = village };
         if (pincode) { updatedUser.pincode = pincode };
         if (email) { updatedUser.email = email };

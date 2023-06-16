@@ -1,81 +1,129 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './sign.css';
+import Navbar from '../Landing/LandingNav';
+import signup1 from './signup2.svg';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+
 const SignUp2 = () => {
+  const [formData, setFormData] = useState({ name: '', role: '', email: '', address: '', city: '', state: '', pincode: '' });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/signup1');
+    }
+  }, []);
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+  const handleClick = async (e) => {
+    e.preventDefault();
+      
+    const res = await fetch('http://localhost:5000/api/auth/createuser/details',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': localStorage.getItem('token')
+        },
+        body: JSON.stringify({ name: formData.name, role: formData.role, email: formData.email, address: formData.address, city: formData.city, state: formData.state, pincode: formData.pincode })
+      });
+    const data = await res.json();
+    console.log(data);
+    navigate('/dashboard');
+
+  }
   return (
-    
-    <Form style={formstyle}>
+    <>
+      <Navbar />
+      <img src={signup1} alt="signup1" className='bg2' />
+
+      <div className="heading2">
+
+      </div>
+      <Form style={formstyle} className='form'>
         <div className='newDivision' style={divstyle}>
-      <Stack gap={2} className="col-md-6 mx-auto">
-      <Row className="mb-3">
-        <Form.Group as={Col} controlId="formGridEmail">
-          <Form.Label>User Name</Form.Label>
-          <Form.Control type="text" placeholder="Enter Name" />
-        </Form.Group>
+          <Stack gap={2} className="col-md-6 mx-auto">
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label>User Name</Form.Label>
+                <Form.Control type="text" placeholder="Enter Name"
+                  value={formData.name}
+                  onChange={onChange}
+                  name='name'
+                />
+              </Form.Group>
 
-        <Form.Group as={Col} controlId="formGridPassword">
-          <Form.Label>Select Role</Form.Label>
-        <Form.Select>
-          <option>User</option>
-          <option>Farmer</option>
-          <option>Investor</option>
-        </Form.Select>
-        </Form.Group>
-      </Row>
-      <Row className="mb-3">
-        <Form.Group as={Col} controlId="formGridEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
-        </Form.Group>
-      </Row>
+              <Form.Group as={Col} controlId="formGridPassword">
+                <Form.Label>Select Role</Form.Label>
+                <Form.Select value={formData.role} onChange={onChange} name='role'>
+                  <option>User</option>
+                  <option>Farmer</option>
+                  <option>Investor</option>
+                </Form.Select>
+              </Form.Group>
+            </Row>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" name='email' value={formData.email} onChange={onChange} />
+              </Form.Group>
+            </Row>
 
-      <Form.Group className="mb-3" controlId="formGridAddress1">
-        <Form.Label>Address</Form.Label>
-        <Form.Control placeholder="1234 Main St" />
-      </Form.Group>
+            <Form.Group className="mb-3" controlId="formGridAddress1">
+              <Form.Label>Address</Form.Label>
+              <Form.Control placeholder="Enter Address" value={formData.address} name='address' onChange={onChange} />
+            </Form.Group>
 
-      <Row className="mb-3">
-        <Form.Group as={Col} controlId="formGridCity">
-          <Form.Label>City/District</Form.Label>
-          <Form.Control />
-        </Form.Group>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formGridCity">
+                <Form.Label>City</Form.Label>
+                <Form.Control value={formData.city} name='city' onChange={onChange} />
+              </Form.Group>
 
-        <Form.Group as={Col} controlId="formGridState">
-          <Form.Label>State</Form.Label>
-          <Form.Control/>
-        </Form.Group>
+              <Form.Group as={Col} controlId="formGridState">
+                <Form.Label>State</Form.Label>
+                <Form.Control value={formData.state} name='state' onChange={onChange} />
+              </Form.Group>
 
-        <Form.Group as={Col} controlId="formGridZip">
-          <Form.Label>Zip</Form.Label>
-          <Form.Control />
-        </Form.Group>
-      </Row>
+              <Form.Group as={Col} controlId="formGridZip">
+                <Form.Label>Zip</Form.Label>
+                <Form.Control value={formData.pincode} name='pincode' onChange={onChange} />
+              </Form.Group>
+            </Row>
 
-      <Button variant="primary" type="submit">
-        SignUp
-      </Button>
-      </Stack> </div>
-    </Form>
+            <Button variant="success" style={{ backgroundColor: " #00ff15", outline: "none", border: "none" }} type="submit" onClick={handleClick}>
+              SignUp
+            </Button>
+          </Stack> </div>
+      </Form>
+    </>
   )
 }
 
 const formstyle = {
-    // border: '1px solid grey',
-    paddingTop: '20px',
-    paddingBottom: '20px',
-    borderRadius: '10px',
-    marginLeft: '5%',
-    marginRight: '5%',
+  // border: '1px solid grey',
+  paddingTop: '20px',
+  paddingBottom: '20px',
+  borderRadius: '10px',
+  // marginLeft: '5%',
+
 }
 const divstyle = {
-    marginLeft: '5%',
-    marginRight: '5%',
-    paddingTop: '20px',
-    paddingBottom: '20px',
+  // marginLeft: '5%',
+
+  paddingTop: '20px',
+  paddingBottom: '20px',
 }
 
 export default SignUp2

@@ -119,11 +119,11 @@
   }
 }
 
-@keyframes glowwtext {
-  20% {
-    text-shadow: 0px 0px 10px #595cff8f;
+@keyframes gloww{
+  20%{
+    box-shadow: 0px 0px 10px #595cff8f ;
   }
-  50% {
-    text-shadow: 0px 0px 10px #ff59a98f;
+  50%{
+    box-shadow: 0px 0px 10px #ff59a98f ;
   }
 }

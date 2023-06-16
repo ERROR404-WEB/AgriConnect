@@ -1,62 +1,123 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import SignIn from './SignIn';
 import SignUp2 from './SignUp2';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './sign.css';
+import Navbar from '../Landing/LandingNav';
+import signup1 from './signup1.png';
+import bg1 from './4.svg'
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 const SignUp1 = () => {
-    const [showSignUp, setShowSignIn] = useState(false);
-    const [showSignUp2, setShowSignUp1] = useState(false);
+  const [showSignUp, setShowSignIn] = useState(false);
+
+  const [formData, setFormData] = useState({ mobile: '', password: '', confirmpassword: '' });
+  const Navigate = useNavigate();
+
 
   if (showSignUp) {
-    return <SignIn />;
-  }   
-  else if(showSignUp2) {
-    return <SignUp2/>
+    return <SignIn />
   }
-  return (
-    <Form style={formstyle}>
-        <div className='newDivision' style={divstyle}>
-      <Stack gap={2} className="col-md-3 mx-auto">
+ 
 
-      <Form.Floating className="mb-3">
-        <Form.Control
-          id="floatingInputCustom"
-          type="tel"
-          placeholder="Mobile Number"
-        />
-        <label htmlFor="floatingInputCustom">Mobile Number</label>
-      </Form.Floating>
+  const createUser = async (e) => {
 
-      <Form.Floating className="mb-3">
-        <Form.Control
-          id="floatingPasswordCustom"
-          type="password"
-          placeholder="Password"
-        />
-        <label htmlFor="floatingPasswordCustom">Password</label>
-      </Form.Floating>
-
-      <Form.Floating className="mb-3">
-        <Form.Control
-          id="ConfirmfloatingPasswordCustom"
-          type="password"
-          placeholder="Password"
-        />
-        <label htmlFor="floatingPasswordCustom">Confirm Password</label>
-      </Form.Floating>
-
-      <Button variant="primary" type="submit" onClick={()=>{setShowSignUp1(true)}}>
-        Next
-      </Button>
+    e.preventDefault();
+    if(formData.mobile.length!==10){
+      alert("Enter a valid mobile number");
+      return;
+    }
+    else if (formData.password !== formData.confirmpassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    else {
+      const res = await fetch('http://localhost:5000/api/auth/createuser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phone: formData.mobile, password: formData.password })
+      });
+      const data = await res.json();
+      localStorage.setItem('token', data);
+      console.log(localStorage.getItem('token'));
       
-      <center><p>
-        Have an Account? &nbsp;
-        <a style={anchor} onClick={()=> {setShowSignIn(true)}}>Sign In</a>
-      </p></center>
-      </Stack></div>
-    </Form>
+      Navigate('/signup2')
+    }
+  }
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+
+
+
+  return (
+    <div>
+
+      <Navbar />
+      <img src={signup1} alt="signup1" className='bg' />
+      <img src={bg1} alt="bg1" className='bg1' />
+      <div className="heading">
+        <h3>Sign Up</h3>
+      </div>
+      <Form style={formstyle} >
+        <div className='newDivision' style={divstyle}>
+          <Stack gap={2} className="col-md-3 mx-auto" >
+
+            <Form.Floating className="mb-3">
+              <Form.Control
+                id="floatingInputCustom"
+                type="tel"
+                placeholder="Mobile Number"
+                name="mobile"
+                value={formData.mobile}
+                onChange={onChange}
+              />
+              <label htmlFor="floatingInputCustom">Mobile Number</label>
+            </Form.Floating>
+
+            <Form.Floating className="mb-3">
+              <Form.Control
+                id="floatingPasswordCustom"
+                type="password"
+                onChange={onChange}
+                name='password'
+                value={formData.password}
+                placeholder="Password"
+              />
+              <label htmlFor="floatingPasswordCustom">Password</label>
+            </Form.Floating>
+
+            <Form.Floating className="mb-3">
+              <Form.Control
+                id="ConfirmfloatingPasswordCustom"
+                type="password"
+                onChange={onChange}
+                name='confirmpassword'
+                value={formData.confirmpassword}
+                placeholder="Password"
+              />
+              <label htmlFor="floatingPasswordCustom">Confirm Password</label>
+            </Form.Floating>
+
+            <Button type="submit" variant="success" style={{ backgroundColor: " #00ff15", outline: "none", border: "none" }} onClick={createUser}>
+              Next
+            </Button>
+
+            <center><p>
+              Have an Account? &nbsp;
+              <Link to='/signin' style={anchor} onClick={() => { setShowSignIn(true) }}>Sign In</Link>
+            </p></center>
+          </Stack></div>
+      </Form>
+    </div>
   )
 }
 

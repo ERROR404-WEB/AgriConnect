@@ -14,13 +14,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    address:{
+        type: String,
+    },
     state: {
         type: String,
     },
-    district: {
-        type: String,
-    },
-    village: {
+    city: {
         type: String,
     },
     pincode: {
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
     },
-    type:{
+    role:{
         type: String,
     }
 

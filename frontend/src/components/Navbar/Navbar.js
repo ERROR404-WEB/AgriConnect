@@ -6,12 +6,20 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 const Navbar = () => {
   const location = useLocation();
   useEffect(() => {
   }
     , [location])
 
+  const navigate = useNavigate();
+  function handleLogout() {
+    localStorage.removeItem('token');
+    navigate('/');
+
+  }
   return (
     <div className="navbar-con">
       <div className="nav-left">
@@ -28,31 +36,36 @@ const Navbar = () => {
         <div className={`nav-link1 ${location.pathname === "/posts" ? "activeu" : " "}`} >
           <Link to='/posts' >
             <i className={`fa-solid fa-house fa-lg ${location.pathname === "/posts" ? "active" : " "}`} ></i> <br />
-            <p style={{ fontSize: "12px",margin:"0px" }} className={`${location.pathname === "/posts" ? "active" : " "}`}>Home</p></Link>
+            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/posts" ? "active" : " "}`}>Home</p></Link>
         </div>
         <div className={`nav-link1 ${location.pathname === "/rooms" ? "activeu" : " "}`} >
           <Link to='/rooms' >
             <i className={`fa-solid fa-briefcase fa-lg ${location.pathname === "/rooms" ? "active" : " "}`} ></i> <br />
-            <p style={{ fontSize: "12px",margin:"0px" }} className={`${location.pathname === "/rooms" ? "active" : " "}`}>Rooms</p></Link>
+            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/rooms" ? "active" : " "}`}>Rooms</p></Link>
         </div>
         <div className={`nav-link1 ${location.pathname === "/chat" ? "activeu" : " "}`} >
           <Link to='/chat' >
             <i className={`fa-solid fa-comments fa-lg ${location.pathname === "/chat" ? "active" : " "}`} ></i> <br />
-            <p style={{ fontSize: "12px",margin:"0px" }} className={`${location.pathname === "/chat" ? "active" : " "}`}>Chat</p></Link>
+            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/chat" ? "active" : " "}`}>Chat</p></Link>
         </div>
         <div className={`nav-link1 ${location.pathname === "/assist" ? "activeu" : " "}`} >
           <Link to='/assist' >
             <i className={`fa-solid fa-user fa-lg ${location.pathname === "/assist" ? "active" : " "}`} ></i> <br />
-            <p style={{ fontSize: "12px",margin:"0px" }} className={`${location.pathname === "/assist" ? "active" : " "}`}>Assist</p></Link>
+            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/assist" ? "active" : " "}`}>Assist</p></Link>
         </div>
         <div className={`nav-link1 ${location.pathname === "/weather" ? "activeu" : " "}`} >
           <Link to='/weather' >
             <i className={`fa-solid fa-cloud fa-lg ${location.pathname === "/weather" ? "active" : " "} `} ></i> <br />
-            <p style={{ fontSize: "12px",margin:"0px" }} className={`${location.pathname === "/weather" ? "active" : " "}`}>Weather</p></Link>
+            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/weather" ? "active" : " "}`}>Weather</p></Link>
         </div>
-        <div className="profile-pic">
+        <div className="profile-pic " style={{ marginRight: "15px" }}>
           <Link to='/dashboard'>
-            <img src={pic} alt="profile" className='pic' /></Link>
+            <img src={pic} alt="profile" className='pic ' /></Link>
+        </div>
+        <div className="dropown" >
+
+          <i class="fa-solid fa-right-from-bracket dropdown-btn" onClick={handleLogout}></i>
+
         </div>
       </div>
 
@@ -63,27 +76,27 @@ const Navbar = () => {
         <div className={`nav-link2 ${location.pathname === "/posts" ? "activeu" : " "}`} >
           <Link to='/posts' >
             <i className={`fa-solid fa-house fa-lg ${location.pathname === "/posts" ? "active" : " "}`} ></i> <br />
-            <p style={{ fontSize: "12px",margin:"0px" }} className={`${location.pathname === "/posts" ? "active" : " "}`}>Home</p></Link>
+            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/posts" ? "active" : " "}`}>Home</p></Link>
         </div>
         <div className={`nav-link2 ${location.pathname === "/rooms" ? "activeu" : " "}`} >
           <Link to='/rooms' >
             <i className={`fa-solid fa-briefcase fa-lg ${location.pathname === "/rooms" ? "active" : " "}`} ></i> <br />
-            <p style={{ fontSize: "12px",margin:"0px" }} className={`${location.pathname === "/rooms" ? "active" : " "}`}>Rooms</p></Link>
+            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/rooms" ? "active" : " "}`}>Rooms</p></Link>
         </div>
         <div className={`nav-link2 ${location.pathname === "/chat" ? "activeu" : " "}`} >
           <Link to='/chat' >
             <i className={`fa-solid fa-comments fa-lg ${location.pathname === "/chat" ? "active" : " "}`} ></i> <br />
-            <p style={{ fontSize: "12px",margin:"0px" }} className={`${location.pathname === "/chat" ? "active" : " "}`}>Chat</p></Link>
+            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/chat" ? "active" : " "}`}>Chat</p></Link>
         </div>
         <div className={`nav-link2 ${location.pathname === "/assist" ? "activeu" : " "}`} >
           <Link to='/assist' >
             <i className={`fa-solid fa-user fa-lg ${location.pathname === "/assist" ? "active" : " "}`} ></i> <br />
-            <p style={{ fontSize: "12px",margin:"0px" }} className={`${location.pathname === "/assist" ? "active" : " "}`}>Assist</p></Link>
+            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/assist" ? "active" : " "}`}>Assist</p></Link>
         </div>
         <div className={`nav-link2 ${location.pathname === "/weather" ? "activeu" : " "}`} >
           <Link to='/weather' >
             <i className={`fa-solid fa-cloud fa-lg ${location.pathname === "/weather" ? "active" : " "} `} ></i> <br />
-            <p style={{ fontSize: "12px",margin:"0px" }} className={`${location.pathname === "/weather" ? "active" : " "}`}>Weather</p></Link>
+            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/weather" ? "active" : " "}`}>Weather</p></Link>
         </div>
 
 
