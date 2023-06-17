@@ -5,7 +5,9 @@ export default function Assist() {
   return (
     <div>
       <Navbar/>
-      Assist
+      <div className="container">
+        
+      </div>
     </div>
   )
 }
