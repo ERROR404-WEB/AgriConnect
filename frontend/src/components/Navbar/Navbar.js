@@ -51,7 +51,7 @@ const Navbar = () => {
         <div className={`nav-link1 ${location.pathname === "/assist" ? "activeu" : " "}`} >
           <Link to='/assist' >
             <i className={`fa-solid fa-user fa-lg ${location.pathname === "/assist" ? "active" : " "}`} ></i> <br />
-            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/assist" ? "active" : " "}`}>Assist</p></Link>
+            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/assist" ? "active" : " "}`}>Network</p></Link>
         </div>
         <div className={`nav-link1 ${location.pathname === "/weather" ? "activeu" : " "}`} >
           <Link to='/weather' >
@@ -64,7 +64,7 @@ const Navbar = () => {
         </div>
         <div className="dropown" >
 
-          <i class="fa-solid fa-right-from-bracket dropdown-btn" onClick={handleLogout}></i>
+          <i className="fa-solid fa-right-from-bracket dropdown-btn" onClick={handleLogout}></i>
 
         </div>
       </div>
@@ -91,7 +91,7 @@ const Navbar = () => {
         <div className={`nav-link2 ${location.pathname === "/assist" ? "activeu" : " "}`} >
           <Link to='/assist' >
             <i className={`fa-solid fa-user fa-lg ${location.pathname === "/assist" ? "active" : " "}`} ></i> <br />
-            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/assist" ? "active" : " "}`}>Assist</p></Link>
+            <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/assist" ? "active" : " "}`}>Network</p></Link>
         </div>
         <div className={`nav-link2 ${location.pathname === "/weather" ? "activeu" : " "}`} >
           <Link to='/weather' >
@@ -99,7 +99,7 @@ const Navbar = () => {
             <p style={{ fontSize: "12px", margin: "0px" }} className={`${location.pathname === "/weather" ? "active" : " "}`}>Weather</p></Link>
         </div>
 
-
+      
       </div>
 
     </div>

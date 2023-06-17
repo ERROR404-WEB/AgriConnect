@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-export default function About() {
+export default function About({ data }) {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -36,7 +36,7 @@ export default function About() {
                                     autoFocus
                                 />
                             </Form.Group>
-                            
+
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
@@ -48,18 +48,14 @@ export default function About() {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-                
+
                 <div className="biotext">
                     <div className="headingusername">
                         <h6><b>About :</b></h6> <i className="fa-solid fa-pen-to-square edit-icon" onClick={handleShow}></i></div>
-                    <p>  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam atque amet, neque dolorem doloremque natus quibusdam modi possimus doloribus molestias. </p>
-
+                    <p>{data.bio}</p>
                     <h6><b>Address:</b></h6>
-                    <p>  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam atque amet, neque dolorem doloremque natus quibusdam modi possimus doloribus molestias. </p>
-
-
+                    <p>  {data.address} </p>
                 </div>
-
             </div>
         </div>
     )

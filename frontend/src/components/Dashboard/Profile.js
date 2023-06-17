@@ -12,11 +12,12 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
 
-export default function Profile() {
+export default function Profile({ data }) {
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    
 
     return (
         <div>
@@ -82,16 +83,17 @@ export default function Profile() {
                 <div className="username">
                     <div className="texts" >
                         <div className="userhead">
-                            <h3 className='usertext'> Arjun Kumar </h3>
+                            <h3 className='usertext'>{data.username} </h3>
                             <i className="fa-solid fa-pen-to-square edit-user" onClick={handleShow}></i>
                         </div>
-                        <h6>Farmer</h6>
+                        <h6>{data.role}</h6>
                     </div>
                 </div>
-                <About />
-                
-                <Social/>
-                <Rooms/>
+
+
+                <About  data={data}/>
+                <Social data={data}/>
+                <Rooms />
                 <Myposts />
 
 

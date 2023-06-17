@@ -3,7 +3,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 import SignIn from './SignIn';
-import SignUp2 from './SignUp2';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './sign.css';
 import Navbar from '../Landing/LandingNav';
@@ -12,12 +11,14 @@ import bg1 from './4.svg'
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+
 const SignUp1 = () => {
   const [showSignUp, setShowSignIn] = useState(false);
 
   const [formData, setFormData] = useState({ mobile: '', password: '', confirmpassword: '' });
   const Navigate = useNavigate();
 
+ 
 
   if (showSignUp) {
     return <SignIn />
@@ -44,9 +45,12 @@ const SignUp1 = () => {
         body: JSON.stringify({ phone: formData.mobile, password: formData.password })
       });
       const data = await res.json();
-      localStorage.setItem('token', data);
+      if(data.success===false){
+        alert(data.error);
+        return;
+      }
+      localStorage.setItem('token', data.authToken);
       console.log(localStorage.getItem('token'));
-      
       Navigate('/signup2')
     }
   }

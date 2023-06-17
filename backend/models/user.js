@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    address:{
+    address: {
         type: String,
     },
     state: {
@@ -29,9 +29,28 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
     },
-    role:{
+    role: {
+        type: String,
+    },
+    profilepic: {
+        type: String,
+    },
+    bannerpic: {
+        type: String,
+    },
+    bio: {
+        type: String,
+    },
+    whatsapp:{
+        type: String,
+    },
+    fb:{
+        type: String,
+    },
+    insta:{
         type: String,
     }
+
 
 });
 

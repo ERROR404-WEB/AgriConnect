@@ -29,15 +29,18 @@ router.post('/createuser', [
     , async (req, res) => {
 
         try {
+            let success = true;
 
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() }); //validation 
+                success = false;
+                return res.status(400).json({success:success, errors: errors.array() }); //validation 
             }
 
             let user = await User.findOne({ phone: req.body.phone }); //check if user exists
             if (user) {
-                return res.status(400).json({ error: "User already exists , Signup using another phone number" });
+                success = false;
+                return res.status(400).json({success:success, error: "User already exists , Signup using another phone number" });
             }
             else {
 
@@ -58,13 +61,13 @@ router.post('/createuser', [
 
                 var authToken = jwt.sign(data, JWT_SECRET_KEY); //create jwt token
 
-                res.json(authToken);
+                res.json({ success :success, authToken:authToken });
             }
 
         }
         catch (error) {
             console.error(error.message);
-            res.status(500).send("Internal Server Error while creating user");
+            res.status(500).send({success:success,error:"Internal Server Error while creating user"});
         }
 
 
@@ -77,8 +80,8 @@ router.post('/createuser', [
 router.post('/createuser/details', fetchuser, async (req, res) => {
 
     try {
-
-        const { name, phone, state, city, village, pincode, email, profilepic, type ,address} = req.body;
+        let success = true;
+        const { name, phone, state, city, village, pincode, email, profilepic, type, address } = req.body;
         const updatedUser = {};
         if (name) { updatedUser.name = name };
         if (phone) { updatedUser.phone = phone };
@@ -89,22 +92,28 @@ router.post('/createuser/details', fetchuser, async (req, res) => {
         if (pincode) { updatedUser.pincode = pincode };
         if (email) { updatedUser.email = email };
         if (profilepic) { updatedUser.profilepic = profilepic };
-        if (type) { updatedUser.type = type };
+        if (role) { updatedUser.role = role };
         if (req.user.id) { updatedUser.user = req.user.id };
+        if(bio) {updatedUser.bio = bio};
+        
+
 
         //find user and update it 
         var userId = req.user.id;
         let user = await User.findById(userId);
-        if (!user) { return res.status(404).send("User Not Found") }
+        if (!user) {
+            success = false;
+            return res.status(404).send({success:success,error:"User Not Found"})
+        }
 
 
         user = await User.findByIdAndUpdate(userId, { $set: updatedUser }, { new: true });
-        res.json(user);
+        res.json({ success, user });
 
     }
     catch (error) {
         console.error(error.message);
-        res.status(500).send("Internal Server Error while creating user");
+        res.status(500).send({success:success,error:"Internal Server Error while creating user"});
     }
 
 });
@@ -118,30 +127,33 @@ router.post('/login', [
     body('phone', 'Enter Valid PhoneNumber').isLength({ min: 10 }),
     body('password', 'Password should not be NULL').exists()
 ], async (req, res) => {
+    let success = true;
     const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            success = false;
-            return res.status(400).json({ success: success, errors: errors.array() });
+    if (!errors.isEmpty()) {
+        success = false;
+        return res.status(400).json({ success: success, errors: errors.array() });
 
-        }
+    }
 
 
     try {
 
-        
+
         const { phone, password } = req.body;
 
         const user = await User.findOne({ phone: phone });
 
         if (!user) {
-           return  res.status(400).json({ error: "Invalid credentials" });
+            success = false;
+            return res.status(400).json({success:success, error: "Invalid credentials" });
         }
         else {
 
             const passwordCompare = await bcrypt.compare(password, user.password);
 
             if (!passwordCompare) {
-                return res.status(400).json({ error: "Invalid credentials" });
+                success = false;
+                return res.status(400).json({ success:success, error: "Invalid credentials" });
             }
 
             const data = {
@@ -150,9 +162,9 @@ router.post('/login', [
                 }
             }
 
-            const authToken =  jwt.sign(data, JWT_SECRET_KEY);
+            const authToken = jwt.sign(data, JWT_SECRET_KEY);
 
-            res.json({ authToken });
+            res.json({ success,authToken });
         }
     }
     catch (error) {

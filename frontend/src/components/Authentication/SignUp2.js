@@ -28,19 +28,39 @@ const SignUp2 = () => {
   }
   const handleClick = async (e) => {
     e.preventDefault();
-      
-    const res = await fetch('http://localhost:5000/api/auth/createuser/details',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'auth-token': localStorage.getItem('token')
-        },
-        body: JSON.stringify({ name: formData.name, role: formData.role, email: formData.email, address: formData.address, city: formData.city, state: formData.state, pincode: formData.pincode })
-      });
-    const data = await res.json();
-    console.log(data);
-    navigate('/dashboard');
+
+    if (formData.name.length === 0) {
+      alert("Enter a valid name");
+    }
+    else if (formData.email.length === 0) {
+      alert("Enter a valid email");
+    }
+    else if (formData.address.length === 0) {
+      alert("Enter a valid address");
+    }
+    else if (formData.city.length === 0) {
+      alert("Enter a valid city");
+    }
+    else if (formData.state.length === 0) {
+      alert("Enter a valid state");
+    }
+    else if (formData.pincode.length !== 6) {
+      alert("Enter a valid pincode");
+    }
+    else {
+      const res = await fetch('http://localhost:5000/api/auth/createuser/details',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('token')
+          },
+          body: JSON.stringify({ name: formData.name, role: formData.role, email: formData.email, address: formData.address, city: formData.city, state: formData.state, pincode: formData.pincode })
+        });
+      const data = await res.json();
+      console.log(data);
+      navigate('/dashboard');
+    }
 
   }
   return (
