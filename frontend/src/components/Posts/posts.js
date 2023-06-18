@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../Navbar/Navbar'
-export default function posts() {
+export default function Posts() {
   return (
     <div>
       <Navbar />

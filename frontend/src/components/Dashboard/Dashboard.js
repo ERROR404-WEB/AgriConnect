@@ -31,6 +31,7 @@ export default function Dashboard() {
           Navigate('/signin');
         }
         else {
+          localStorage.setItem("userid",data._id);
           setProfileData({ name: data.name, address: data.address, email: data.email, phone: data.phone , bio:data.bio,role:data.role ,fb:data.fb,insta:data.insta,whatsapp:data.whatsapp,telegram:data.telegram,gmail:data.gmail});
         }
 
