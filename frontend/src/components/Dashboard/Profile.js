@@ -11,13 +11,28 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
+import { useNavigate } from 'react-router-dom';
 
-export default function Profile({ data }) {
+export default function Profile({ data, setData }) {
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+    }
     const handleShow = () => setShow(true);
+    const [eData, seteData] = useState({ name: '', pfp: '', banner: '', bio: '', address: '', phone: '' })
 
-    
+    const handleChange = (e) => {
+
+        seteData({ ...eData, [e.target.name]: e.target.value })
+    }
+    const saveChanges = async () => {
+
+
+        console.log(data);
+        setData(eData);
+        console.log(eData);
+        setShow(false);
+    }
 
     return (
         <div>
@@ -33,6 +48,9 @@ export default function Profile({ data }) {
                                 type="text"
                                 placeholder={localStorage.getItem('username')}
                                 autoFocus
+                                name='name'
+                                onChange={handleChange}
+                                value={eData.name}
                             />
                         </Form.Group>
                         <Form.Group
@@ -63,7 +81,7 @@ export default function Profile({ data }) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={saveChanges}>
                         Save Changes
                     </Button>
                 </Modal.Footer>
@@ -83,7 +101,7 @@ export default function Profile({ data }) {
                 <div className="username">
                     <div className="texts" >
                         <div className="userhead">
-                            <h3 className='usertext'>{data.username} </h3>
+                            <h3 className='usertext'>{data.name} </h3>
                             <i className="fa-solid fa-pen-to-square edit-user" onClick={handleShow}></i>
                         </div>
                         <h6>{data.role}</h6>
@@ -91,8 +109,8 @@ export default function Profile({ data }) {
                 </div>
 
 
-                <About  data={data}/>
-                <Social data={data}/>
+                <About data={data} />
+                <Social data={data} />
                 <Rooms />
                 <Myposts />
 

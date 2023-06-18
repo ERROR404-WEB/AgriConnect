@@ -21,7 +21,7 @@ const SignUp2 = () => {
     if (!token) {
       navigate('/signup1');
     }
-  }, []);
+  });
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

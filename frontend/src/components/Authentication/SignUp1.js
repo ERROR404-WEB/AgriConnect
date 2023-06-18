@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
@@ -18,17 +18,22 @@ const SignUp1 = () => {
   const [formData, setFormData] = useState({ mobile: '', password: '', confirmpassword: '' });
   const Navigate = useNavigate();
 
- 
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      Navigate('/dashboard');
+    }
+  });
 
   if (showSignUp) {
     return <SignIn />
   }
- 
+
+
 
   const createUser = async (e) => {
 
     e.preventDefault();
-    if(formData.mobile.length!==10){
+    if (formData.mobile.length !== 10) {
       alert("Enter a valid mobile number");
       return;
     }
@@ -45,7 +50,7 @@ const SignUp1 = () => {
         body: JSON.stringify({ phone: formData.mobile, password: formData.password })
       });
       const data = await res.json();
-      if(data.success===false){
+      if (data.success === false) {
         alert(data.error);
         return;
       }

@@ -21,7 +21,7 @@ const SignIn = () => {
     if (localStorage.getItem('token')) {
       Navigate('/dashboard')
     }
-  }, [])
+  });
   if (showSignUp) {
     return <SignUp />;
   }
@@ -40,7 +40,7 @@ const SignIn = () => {
     });
 
     const data = await res.json();
-   
+
     if (data.success === false) {
       alert(data.error);
       return;

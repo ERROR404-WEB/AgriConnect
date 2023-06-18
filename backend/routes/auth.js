@@ -78,10 +78,10 @@ router.post('/createuser', [
 
 
 router.post('/createuser/details', fetchuser, async (req, res) => {
-
+    let success = true;
     try {
-        let success = true;
-        const { name, phone, state, city, village, pincode, email, profilepic, type, address } = req.body;
+        
+        const { name, phone, state, city, village, pincode, email, profilepic, role, address,bio,banner } = req.body;
         const updatedUser = {};
         if (name) { updatedUser.name = name };
         if (phone) { updatedUser.phone = phone };
@@ -93,9 +93,8 @@ router.post('/createuser/details', fetchuser, async (req, res) => {
         if (email) { updatedUser.email = email };
         if (profilepic) { updatedUser.profilepic = profilepic };
         if (role) { updatedUser.role = role };
-        if (req.user.id) { updatedUser.user = req.user.id };
         if(bio) {updatedUser.bio = bio};
-        
+        if(banner) {updatedUser.banner = banner};
 
 
         //find user and update it 
@@ -113,6 +112,7 @@ router.post('/createuser/details', fetchuser, async (req, res) => {
     }
     catch (error) {
         console.error(error.message);
+        success = false;
         res.status(500).send({success:success,error:"Internal Server Error while creating user"});
     }
 

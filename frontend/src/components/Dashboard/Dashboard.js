@@ -8,7 +8,7 @@ import { set } from 'mongoose';
 export default function Dashboard() {
   const Navigate = useNavigate();
   const [show, setShow] = useState(false);
-  const [profileData, setProfileData] = useState({name:'',address:'',email:'',phone:''});
+  const [profileData, setProfileData] = useState({ name: '', address: '', email: '', phone: '' ,bio:''});
 
   useEffect(() => {
 
@@ -18,7 +18,6 @@ export default function Dashboard() {
     }
     else {
       setShow(true);
-      // console.log(localStorage.getItem('token'))
       const getProfile = async () => {
         const response = await fetch('http://localhost:5000/api/auth/getuser', {
           method: 'POST',
@@ -33,7 +32,7 @@ export default function Dashboard() {
           Navigate('/signin');
         }
         else {
-          setProfileData({username:data.name,address:data.address,email:data.email,phone:data.phone});
+          setProfileData({ name: data.name, address: data.address, email: data.email, phone: data.phone , bio:data.bio});
         }
 
       }
@@ -50,7 +49,7 @@ export default function Dashboard() {
           <Navbar />
           <div className="container " >
 
-            <Profile data ={profileData} />
+            <Profile data={profileData} setData={setProfileData} />
 
           </div>
         </>)}

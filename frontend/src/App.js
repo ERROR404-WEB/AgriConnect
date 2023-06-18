@@ -22,7 +22,6 @@ function App() {
       
           <Routes>
             <Route exact path='/' element={<Home />} />
-            
             <Route exact path='/posts' element={<Posts />} />
             <Route exact path='/signin' element={<SignIn />} />
             <Route exact path='/signup1' element={<SignUp1 />} />
