@@ -10,16 +10,18 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import axios from 'axios';
+
 
 import { useNavigate } from 'react-router-dom';
 
-export default function Profile({ data, setData }) {
+export default function Profile({ data , setData }) {
     const [show, setShow] = useState(false);
     const handleClose = () => {
         setShow(false);
     }
     const handleShow = () => setShow(true);
-    const [eData, seteData] = useState({ name: '', pfp: '', banner: '', bio: '', address: '', phone: '' })
+    const [eData, seteData] = useState({ name: data.name});
 
     const handleChange = (e) => {
 
@@ -27,10 +29,16 @@ export default function Profile({ data, setData }) {
     }
     const saveChanges = async () => {
 
-
-        console.log(data);
-        setData(eData);
-        console.log(eData);
+        const response = await fetch('http://localhost:5000/api/auth/createuser/details', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('token')
+          },
+          body: JSON.stringify(eData)
+        })
+        const data1 = await response.json();
+        setData(data1.user);
         setShow(false);
     }
 
@@ -46,7 +54,6 @@ export default function Profile({ data, setData }) {
                             <Form.Label>User Name</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder={localStorage.getItem('username')}
                                 autoFocus
                                 name='name'
                                 onChange={handleChange}
@@ -109,8 +116,8 @@ export default function Profile({ data, setData }) {
                 </div>
 
 
-                <About data={data} />
-                <Social data={data} />
+                <About data={data} setData={setData}/>
+                <Social data={data} setData={setData}/>
                 <Rooms />
                 <Myposts />
 

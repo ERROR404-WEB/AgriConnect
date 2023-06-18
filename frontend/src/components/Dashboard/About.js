@@ -5,11 +5,32 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-export default function About({ data }) {
+export default function About({ data , setData}) {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [eData, seteData] = useState({ bio: data.bio , address:data.address}); 
+
+
+    const handleChange = (e) => {
+            seteData({ ...eData, [e.target.name]: e.target.value })
+    }
+
+    const saveChanges = async () => {
+
+        const response = await fetch('http://localhost:5000/api/auth/createuser/details', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'auth-token': localStorage.getItem('token')
+          },
+          body: JSON.stringify(eData)
+        })
+        const data1 = await response.json();
+        setData(data1.user);
+        setShow(false);
+    }
 
     return (
         <div>
@@ -26,6 +47,9 @@ export default function About({ data }) {
                                     type="text"
                                     placeholder="Edit about"
                                     autoFocus
+                                    name='bio'
+                                    value={eData.bio}
+                                    onChange={handleChange}
                                 />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -34,6 +58,9 @@ export default function About({ data }) {
                                     type="text"
                                     placeholder="Edit address"
                                     autoFocus
+                                    name='address'
+                                    value={eData.address}
+                                    onChange={handleChange}
                                 />
                             </Form.Group>
 
@@ -43,7 +70,10 @@ export default function About({ data }) {
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={handleClose}>
+                        <Button variant="primary" onClick={()=>{
+                            saveChanges();
+                            handleClose();
+                        }}>
                             Save Changes
                         </Button>
                     </Modal.Footer>
