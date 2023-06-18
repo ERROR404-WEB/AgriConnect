@@ -49,6 +49,12 @@ const userSchema = new mongoose.Schema({
     },
     insta:{
         type: String,
+    },
+    telegram:{
+        type: String,
+    },
+    gmail:{
+        type: String,
     }
 
 

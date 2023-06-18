@@ -3,12 +3,11 @@ import Profile from './Profile'
 import Navbar from '../Navbar/Navbar'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { set } from 'mongoose';
 
 export default function Dashboard() {
   const Navigate = useNavigate();
   const [show, setShow] = useState(false);
-  const [profileData, setProfileData] = useState({ name: '', address: '', email: '', phone: '' ,bio:''});
+  const [profileData, setProfileData] = useState({ name: '', address: '', email: '', phone: '' ,bio:'',role:''});
 
   useEffect(() => {
 
@@ -32,7 +31,7 @@ export default function Dashboard() {
           Navigate('/signin');
         }
         else {
-          setProfileData({ name: data.name, address: data.address, email: data.email, phone: data.phone , bio:data.bio});
+          setProfileData({ name: data.name, address: data.address, email: data.email, phone: data.phone , bio:data.bio,role:data.role ,fb:data.fb,insta:data.insta,whatsapp:data.whatsapp,telegram:data.telegram,gmail:data.gmail});
         }
 
       }

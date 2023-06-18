@@ -11,6 +11,7 @@ import Rooms from './components/Rooms/Rooms'
 import Weather from './components/Weather/Weather'
 import Assist from './components/Assist/Assist'
 import Home from './components/Landing/Home'
+import ProtectedRoute from './protectedRoutes';
 import { BrowserRouter as Router,  Route, Routes } from 'react-router-dom';
 
 
@@ -22,7 +23,7 @@ function App() {
       
           <Routes>
             <Route exact path='/' element={<Home />} />
-            <Route exact path='/posts' element={<Posts />} />
+            <Route exact path='/posts' element={<ProtectedRoute><Posts /></ProtectedRoute>} />
             <Route exact path='/signin' element={<SignIn />} />
             <Route exact path='/signup1' element={<SignUp1 />} />
             <Route exact path='/signup2' element={<SignUp2 />} />

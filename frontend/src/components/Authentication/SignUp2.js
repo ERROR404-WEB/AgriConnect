@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const SignUp2 = () => {
-  const [formData, setFormData] = useState({ name: '', role: '', email: '', address: '', city: '', state: '', pincode: '' });
+  const [formData, setFormData] = useState({ name: '', role: 'User', email: '', address: '', city: '', state: '', pincode: '' });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,6 +26,7 @@ const SignUp2 = () => {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
+
   const handleClick = async (e) => {
     e.preventDefault();
 
@@ -47,7 +48,11 @@ const SignUp2 = () => {
     else if (formData.pincode.length !== 6) {
       alert("Enter a valid pincode");
     }
+    else if (formData.role.length === 0) {
+      alert("Enter a valid role");
+    }
     else {
+      //console.log(formData);
       const res = await fetch('http://localhost:5000/api/auth/createuser/details',
         {
           method: 'POST',
@@ -87,9 +92,9 @@ const SignUp2 = () => {
               <Form.Group as={Col} controlId="formGridPassword">
                 <Form.Label>Select Role</Form.Label>
                 <Form.Select value={formData.role} onChange={onChange} name='role'>
-                  <option>User</option>
-                  <option>Farmer</option>
-                  <option>Investor</option>
+                  <option value="User">User</option>
+                  <option value="Farmer">Farmer</option>
+                  <option value="Investor">Investor</option>
                 </Form.Select>
               </Form.Group>
             </Row>

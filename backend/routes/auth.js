@@ -81,7 +81,7 @@ router.post('/createuser/details', fetchuser, async (req, res) => {
     let success = true;
     try {
         
-        const { name, phone, state, city, village, pincode, email, profilepic, role, address,bio,banner } = req.body;
+        const { name, phone, state, city, village, pincode, email, profilepic, role, address,bio,banner,fb,insta,telegram,gmail,whatsapp } = req.body;
         const updatedUser = {};
         if (name) { updatedUser.name = name };
         if (phone) { updatedUser.phone = phone };
@@ -95,6 +95,11 @@ router.post('/createuser/details', fetchuser, async (req, res) => {
         if (role) { updatedUser.role = role };
         if(bio) {updatedUser.bio = bio};
         if(banner) {updatedUser.banner = banner};
+        if(fb){updatedUser.fb = fb};
+        if(insta){updatedUser.insta = insta};
+        if(telegram){updatedUser.telegram = telegram};
+        if(gmail){updatedUser.gmail = gmail};
+        if(whatsapp){updatedUser.whatsapp = whatsapp};
 
 
         //find user and update it 
@@ -107,6 +112,7 @@ router.post('/createuser/details', fetchuser, async (req, res) => {
 
 
         user = await User.findByIdAndUpdate(userId, { $set: updatedUser }, { new: true });
+        console.log(user);
         res.json({ success, user });
 
     }
