@@ -176,12 +176,12 @@ export default function Chat() {
             </div>
             <div className="main-current-chats" id="msg-div">
               {msgdata.map((message, index) =>
-                message.sender === senderid  ? (
+                message.sender === senderid ? (
                   <div className="main-msgs-right" key={index}>
                     <div className="msg-container">
                       {message.type === 0 ? (
                         <p>
-                          {message.msg} 
+                          {message.msg}
                         </p>
                       ) : (
                         <p>
@@ -198,7 +198,7 @@ export default function Chat() {
                     <div className="msg-container">
                       {message.type === 0 ? (
                         <p>
-                          {message.msg} 
+                          {message.msg}
                         </p>
                       ) : (
                         <p>

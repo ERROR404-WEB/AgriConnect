@@ -269,7 +269,4 @@ router.post("/getmsgs", async(req, res) => {
 
 
 
-
-
-
 module.exports = router;
