@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-export default function About({ data , setData}) {
+export default function About({ data , setData,showEdit}) {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -81,7 +81,9 @@ export default function About({ data , setData}) {
 
                 <div className="biotext">
                     <div className="headingusername">
-                        <h6><b>About :</b></h6> <i className="fa-solid fa-pen-to-square edit-icon" onClick={handleShow}></i></div>
+                         <h6><b>About :</b></h6> 
+                         {showEdit && <i className="fa-solid fa-pen-to-square edit-icon" onClick={handleShow}></i> }
+                         </div>
                     <p>{data.bio}</p>
                     <h6><b>Address:</b></h6>
                     <p>  {data.address} </p>

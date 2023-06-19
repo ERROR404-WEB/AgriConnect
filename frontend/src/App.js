@@ -12,13 +12,16 @@ import Weather from './components/Weather/Weather'
 import Assist from './components/Assist/Assist'
 import Home from './components/Landing/Home'
 import ProtectedRoute from './protectedRoutes';
+import ProfileUser from './components/Dashboard/ProfileUser'
+import { UserProvider } from './components/UserContext/UserContext'; 
+
 import { BrowserRouter as Router,  Route, Routes } from 'react-router-dom';
 
 
 function App() {
   return (
     <div className="App">
-
+      <UserProvider>
       <Router>
       
           <Routes>
@@ -28,6 +31,7 @@ function App() {
             <Route exact path='/signup1' element={<SignUp1 />} />
             <Route exact path='/signup2' element={<SignUp2 />} />
             <Route exact path='/dashboard' element={<Dashboard />} />
+            <Route exact path='/profile' element={<ProfileUser />} />
             <Route exact path='/chat' element={<Chat />} />
             <Route exact path='/assist' element={<Assist />} />
             <Route exact path='/weather' element={<Weather />} />
@@ -36,7 +40,7 @@ function App() {
           
       </Router>
 
-
+      </UserProvider>
     </div>
   );
 }
