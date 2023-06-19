@@ -4,7 +4,8 @@ import Navbar from '../Navbar/Navbar'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-export default function Dashboard() {
+
+export default function Dashboard(props) {
   const Navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [profileData, setProfileData] = useState({ name: '', address: '', email: '', phone: '' ,bio:'',role:''});
@@ -44,16 +45,17 @@ export default function Dashboard() {
 
 
     <div >
+       
       {show && (
         <>
           <Navbar />
           <div className="container " >
 
-            <Profile data={profileData} setData={setProfileData} />
+            <Profile data={profileData} setData={setProfileData}  showEdit={true} />
 
           </div>
         </>)}
-
+       
     </div>
 
   )

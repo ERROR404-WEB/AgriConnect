@@ -13,7 +13,7 @@ import Modal from 'react-bootstrap/Modal';
 
 import { useNavigate } from 'react-router-dom';
 
-export default function Profile({ data , setData }) {
+export default function Profile({ data , setData ,showEdit }) {
     const [show, setShow] = useState(false);
     const handleClose = () => {
         setShow(false);
@@ -107,15 +107,15 @@ export default function Profile({ data , setData }) {
                     <div className="texts" >
                         <div className="userhead">
                             <h3 className='usertext'>{data.name} </h3>
-                            <i className="fa-solid fa-pen-to-square edit-user" onClick={handleShow}></i>
+                             { showEdit && <i className="fa-solid fa-pen-to-square edit-user" onClick={handleShow}></i>}
                         </div>
                         <h6>{data.role}</h6>
                     </div>
                 </div>
 
 
-                <About data={data} setData={setData}/>
-                <Social data={data} setData={setData}/>
+                <About data={data} setData={setData} showEdit={showEdit}/>
+                <Social data={data} setData={setData} showEdit={showEdit}/>
                 <Rooms />
                 <Myposts />
 

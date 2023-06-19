@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-export default function Social({data, setData}) {
+export default function Social({data, setData,showEdit}) {
 
     const [show, setShow] = useState(false);
     const [eData, seteData] = useState({ fb: data.fb , insta:data.insta, gmail:data.gmail, whatsapp:data.whatsapp, telegram:data.telegram});
@@ -122,7 +122,7 @@ export default function Social({data, setData}) {
 
                 <div className="social">
                     <h6><b>Social:</b></h6>
-                    <i className="fa-solid fa-pen-to-square edit-icon" onClick={handleShow}></i>
+                   {showEdit && <i className="fa-solid fa-pen-to-square edit-icon" onClick={handleShow}></i>}
                 </div>
                 <div className="contact-icons">
                     {data.whatsapp &&
