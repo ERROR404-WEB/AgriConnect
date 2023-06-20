@@ -136,7 +136,7 @@ export default function Social({data, setData,showEdit}) {
                     }}/>
                     }
                     {data.gmail &&
-                    <img src={gmail} alt="Gmail" className='social-icon' omClick={()=>{
+                    <img src={gmail} alt="Gmail" className='social-icon' onClick={()=>{
                         window.open(`mailto:${data.gmail}`, '_blank');
                     }}/>
                     }
