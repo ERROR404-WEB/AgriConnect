@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
-import SearchIcon from "@mui/icons-material/Search";
+
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
+import ChatLogo from './chatlogo.svg'
 
 import axios from "axios";
 import "./main.css";
+import { set } from "mongoose";
 
 export default function Chat() {
   const [receiver, setReceiver] = useState("");
@@ -15,6 +17,8 @@ export default function Chat() {
   const [users, setUsers] = useState([]);
   const [msgdata, setMsgdata] = useState([]);
   const [senderid, setSenderid] = useState("");
+  const [responsive, setResponsive] = useState(false);
+
   const navigate = useNavigate();
   useEffect(() => {
     setSenderid(localStorage.getItem("userid"));
@@ -56,7 +60,7 @@ export default function Chat() {
   }
 
   function sendmsg(msg) {
-    if (msg) {
+    if (msg.trim() !== "") {
       var sender = localStorage.getItem("userid");
       let abc = {
         msg: `${msg}`,
@@ -109,38 +113,45 @@ export default function Chat() {
 
   // Filter the users based on the search query
   const filteredUsers = users.filter((user) =>
+
     user.name.toLowerCase().includes(searchQuery.toLowerCase())
+
   );
 
   return (
     <div>
       <Navbar />
       <div className="main-container">
-        <div className="main-div1">
+
+        <div className={`main-div1 ${responsive ? "display-none" : ""}`}>
+          <div className="chat-heading">
+            Chats
+          </div>
           <div className="main-search">
             <form>
-              <input
-                type="text"
-                placeholder="Enter Username"
-                className="main-search-text"
-                value={searchQuery}
-                onChange={handleSearch}
-              />
-              <button className="main-search-icon">
-                <SearchIcon />
-              </button>
+              <div className="search-container-chat">
+                <input
+                  type="text"
+                  placeholder="Enter Username"
+                  className="search-input-chat"
+                  value={searchQuery}
+                  onChange={handleSearch}
+
+                />
+                <i className="fa-solid fa-magnifying-glass fa-sm" style={{ marginRight: "5px", marginLeft: "5px" }}></i>
+              </div>
             </form>
           </div>
-          <div className="main-users">
+
+          <div className="main-users" >
             {filteredUsers.length > 0 ? (
               filteredUsers.map((user) => (
-                <div key={user._id} className="main-chats">
-                  <button
-                    onClick={() => {
-                      setReceiverid(user._id);
-                      chat(user.name);
-                    }}
-                  >
+                <div key={user._id} className="main-chats" onClick={() => {
+                  setReceiverid(user._id);
+                  chat(user.name);
+                  setResponsive(true);
+                }}>
+                  <button >
                     {user.name}
                   </button>
                 </div>
@@ -149,31 +160,51 @@ export default function Chat() {
               <p>No users found</p>
             )}
           </div>
+
         </div>
-        <div className="main-div2">
+
+
+        <div className={`main-div2   ${responsive ? "" : "display-none"}       `}>
+
           <div className="main-div2-template" id="main-div2-template">
             <img
               alt=""
               className="logo1"
-              src="https://i.ibb.co/cydmzfk/5758868edd0895e85e8b4d62-removebg-preview.png"
+              src={ChatLogo}
             />
             <h3>Chats will be displayed here</h3>
           </div>
+
           <div className="main-div2-content" id="main-div2-content">
+
             <div className="main-current-user">
+
+              <i className="fa-solid fa-arrow-left fa-sm left-arrow"
+
+                onClick={() => {
+                    setResponsive(false);
+                }
+                }
+
+
+              ></i>
+
+
               <div>
-                <i>{receiver}</i>
+                {receiver}
               </div>
-              <div className="main-icons">
+              {/* <div className="main-icons">
                 <button
                   onClick={() => {
                     Callfun();
                   }}
                 >
-                  <VideoCallIcon className="icons" />
+                  <i className="fa-solid fa-video fa-sm"></i>
                 </button>
-              </div>
+              </div> */}
             </div>
+
+
             <div className="main-current-chats" id="msg-div">
               {msgdata.map((message, index) =>
                 message.sender === senderid ? (
@@ -182,6 +213,7 @@ export default function Chat() {
                       {message.type === 0 ? (
                         <p>
                           {message.msg}
+                          {/* {message.msg.match(/.{1,30}/g).join('\n')} */}
                         </p>
                       ) : (
                         <p>
@@ -199,6 +231,7 @@ export default function Chat() {
                       {message.type === 0 ? (
                         <p>
                           {message.msg}
+                          {/* {message.msg.match(/.{1,30}/g).join('\n')} */}
                         </p>
                       ) : (
                         <p>
@@ -212,7 +245,9 @@ export default function Chat() {
                   </div>
                 )
               )}
+
             </div>
+
             <div className="main-current-type">
               <textarea
                 type="text"
@@ -224,11 +259,14 @@ export default function Chat() {
                 }}
                 onInput={(e) => calculateTextAreaHeight(e.target)}
                 className="textarea"
+                
+
+
               />
 
-              <button className="msg-sent" onClick={() => sendmsg(msg)}>
+              <div className="msg-sent" onClick={() => { sendmsg(msg); }}>
                 <SendIcon />
-              </button>
+              </div>
             </div>
           </div>
         </div>

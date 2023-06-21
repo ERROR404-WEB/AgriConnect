@@ -197,7 +197,7 @@ router.post('/getuser', fetchuser, async(req, res) => {
 
 //ROUTE 5: TO SEND THE MESSAGE
 
-router.post("/sendmsg", (req, res) => {
+router.post("/sendmsg", async (req, res) => {
     try {
         const currentDate = new Date();
         const day = currentDate.getDate();
@@ -209,7 +209,7 @@ router.post("/sendmsg", (req, res) => {
         const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
         const tym = `${day}/${month}/${year} ${formattedHours}:${minutes}${amOrPm}`;
 
-        var a = new Chat({
+        var a =await new Chat({
             msg: req.body.abc.msg,
             sender: req.body.abc.sender,
             receiver: req.body.abc.receiver,
