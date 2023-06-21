@@ -26,7 +26,7 @@ const fetchuser = require('../middleware/fetchuser'); //middleware
 router.post('/createuser', [
     body('password', 'Password Should Be atleast Length Of 5').isLength({ min: 5 }),
     body('phone', 'Enter Valid Phone Number').isLength({ min: 10 }),
-], async (req, res) => {
+], async(req, res) => {
 
     try {
         let success = true;
@@ -75,7 +75,7 @@ router.post('/createuser', [
 //route  2: Enter details of users using post "/api/auth/enterdetails" .
 
 
-router.post('/createuser/details', fetchuser, async (req, res) => {
+router.post('/createuser/details', fetchuser, async(req, res) => {
     let success = true;
     try {
 
@@ -129,7 +129,7 @@ router.post('/login', [
 
     body('phone', 'Enter Valid PhoneNumber').isLength({ min: 10 }),
     body('password', 'Password should not be NULL').exists()
-], async (req, res) => {
+], async(req, res) => {
     let success = true;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -183,7 +183,7 @@ router.post('/login', [
 
 //ROUTE 4: Get Loggedin User Details using: POST "/api/auth/getUser". Login required
 
-router.post('/getuser', fetchuser, async (req, res) => {
+router.post('/getuser', fetchuser, async(req, res) => {
 
     try {
         var userId = req.user.id;
@@ -226,7 +226,7 @@ router.post("/sendmsg", (req, res) => {
 
 //ROUTE 6: TO FETCH ALL THE USERS 
 
-router.post("/getchatusers", async (req, res) => {
+router.post("/getchatusers", async(req, res) => {
     try {
         const id = req.body.senderid;
         try {
@@ -244,7 +244,7 @@ router.post("/getchatusers", async (req, res) => {
 
 //ROUTE 7: TO GET ALL THE MESSAGES
 
-router.post("/getmsgs", async (req, res) => {
+router.post("/getmsgs", async(req, res) => {
     try {
         try {
             const data = await Chat.find({
@@ -267,9 +267,8 @@ router.post("/getmsgs", async (req, res) => {
 
 //route 8 : get all users 
 
-router.get('/getallusers', async (req, res) => {
+router.get('/getallusers', async(req, res) => {
     try {
-        
         let users = await User.find();
         res.json(users);
     } catch (error) {
@@ -280,7 +279,7 @@ router.get('/getallusers', async (req, res) => {
 
 //route 9: get user details by id
 
-router.post('/getuserbyid', async (req, res) => {
+router.post('/getuserbyid', async(req, res) => {
     try {
 
         let user = await User.findById(req.body.id);
@@ -294,4 +293,4 @@ router.post('/getuserbyid', async (req, res) => {
 
 
 
-    module.exports = router;
+module.exports = router;
