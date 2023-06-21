@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-import VideoCallIcon from "@mui/icons-material/VideoCall";
+
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
@@ -8,7 +8,7 @@ import ChatLogo from './chatlogo.svg'
 
 import axios from "axios";
 import "./main.css";
-import { set } from "mongoose";
+
 
 export default function Chat() {
   const [receiver, setReceiver] = useState("");
