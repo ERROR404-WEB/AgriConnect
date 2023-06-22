@@ -146,10 +146,27 @@ a:hover {
 
 .searched_users {
     position: absolute;
-    width: 10%;
+    width: 15.5rem;
     z-index: 9999;
-    background-color: aliceblue;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(217, 250, 224);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-bottom: 0px;
 }
+.users{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 5px;
+    cursor: pointer;
+    padding-top: 6px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}.users:hover{
+    background-color: rgb(154, 255, 179);
+}
+
 
 @media only screen and (max-width: 767px) {
     .nav-link1 {

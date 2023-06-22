@@ -10,7 +10,7 @@
   flex-wrap: wrap;
   height: 100%;
   position: fixed;
-  background-color: rgba(100, 162, 255, 0.078);
+  background-color: rgba(128, 255, 100, 0.078);
   width: 100%;
   margin-bottom: 5px;
   /* background: linear-gradient(60deg, aliceblue, lightblue, lightgrey); */
@@ -20,7 +20,7 @@
 .main-div1 {
   width: 23%;
   height: 100vh;
-  background-color: rgba(0, 81, 255, 0.105);
+  background-color: rgba(17, 255, 0, 0.105);
   /* background-color: rgba(77, 224, 197, 0.374); */
   /* background: linear-gradient(295deg, aliceblue, lightblue, lightgrey); */
   /* background-color: rgba(173, 255, 186, 0.158); */
@@ -75,7 +75,7 @@
   display: flex;
   /* justify-content: space-between; */
 
-  background-color: rgb(176, 200, 253);
+  background-color: rgb(176, 253, 176);
 }
 
 .main-current-chats {
@@ -107,7 +107,7 @@
 .main-current-type {
   bottom: 1px;
   width: 77%;
-  background-color: rgb(176, 200, 253);
+  background-color: rgb(176, 253, 181);
  
   display: flex;
   position: fixed;
@@ -148,7 +148,7 @@
 
 .main-msgs-right {
   /* border: 1px solid rgba(0, 0, 0, 0.333); */
-  background-color: rgba(0, 81, 255, 0.24);
+  background-color: rgba(38, 255, 0, 0.24);
   width: fit-content;
   max-width: 40%;
   font-size: 20px;
@@ -166,7 +166,7 @@
 }
 
 .main-msgs-left {
-  background-color: rgba(0, 81, 255, 0.24);
+  background-color: rgba(26, 255, 0, 0.24);
   width: fit-content;
   max-width: 40%;
   font-size: 20px;
@@ -238,7 +238,7 @@
   align-items: center;
   font-size: larger;
   justify-content: center;
-  background-color: rgba(0, 81, 255, 0.105);
+  background-color: rgba(0, 255, 21, 0.105);
 }
 .main-search {
   width: 100%;
@@ -248,7 +248,7 @@
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.306);
-  background-color: rgba(0, 81, 255, 0.105);
+  background-color: rgba(9, 255, 0, 0.105);
   /* background-color: rgba(0, 255, 0, 0.139); */
 }
 .search-container-chat {
@@ -257,7 +257,7 @@
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 5px;
   padding-left: 5px;
-  background-color: rgba(0, 81, 255, 0.242);
+  background-color: rgba(4, 255, 0, 0.242);
   /* background-color: rgba(0, 255, 0, 0.139); */
   margin-bottom: 10px;
 }
@@ -298,13 +298,13 @@
   transition: 0.3s ease-in-out;
 }
 .main-chats:hover {
-  background-color: rgba(0, 0, 0, 0.057);
+  background-color: rgba(0, 54, 1, 0.057);
 }
 .main-users {
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  background-color: rgba(0, 81, 255, 0.196);
+  background-color: rgba(51, 255, 0, 0.196);
   /* background-color: rgba(0, 255, 0, 0.139); */
   /* height: 110vh; */
   /* margin-top: 10px; */
