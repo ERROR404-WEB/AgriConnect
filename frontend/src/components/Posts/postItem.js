@@ -4,14 +4,16 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
+function AddNewPost(props)
+{
+  // post button functionality;
+}
 function PostModal(props) {
   const handleClose = () => props.onHide();
   const checkData = async () => {
     props.setTyping(props.typing.length <= 0? " " : props.typing);
   }
-  const saveChanges = async () => {
-    // for the backend part...
-  }
+  
   return (
     <Modal
       {...props} // array containing all the props passed to the component. (spread operator)
@@ -34,7 +36,7 @@ function PostModal(props) {
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Label className = 'modal-file-input'>Upload a File</Form.Label>
                 <Form.Control
-                type="file"   autoFocus
+                type="file" id = "image"  autoFocus
                 onChange={checkData}
                 />
           </Form.Group>
@@ -42,7 +44,7 @@ function PostModal(props) {
       </Modal.Body>
       <Modal.Footer>
       <Button variant="secondary" onClick={handleClose}> Close </Button>
-    <Button onClick={props.onHide} disabled={props.typing.length > 0 ? false : true}>Post</Button> {/* props.onHide to be replaced by saveChanges after the functionality*/}
+    <Button onClick={AddNewPost(props)} disabled={props.typing.length === 0}>Post</Button> {/* props.onHide to be replaced by saveChanges after the functionality*/}
       </Modal.Footer>
     </Modal>
   );

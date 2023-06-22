@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PostItems from './postItem';
+import PostCard from './PostTemplate';
 import videoIcon from './images/video-icon.png';
 import userIcon from './images/user.svg';
 import photoIcon from './images/photo-icon.svg';
@@ -51,7 +52,7 @@ function PostsAndDetails() {
             <PostItems modalShow={modalShow} setModalShow={setModalShow} typing={typing} setTyping={setTyping}/>
           </div>
         </Col>
-        <Col>This Part is for Friend Suggestions etc..</Col>
+        <Col><PostCard image = {photoIcon} textdata={"hello "} /></Col>
       </Row>
     </Container>
   );
