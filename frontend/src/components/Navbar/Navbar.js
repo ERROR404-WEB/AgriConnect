@@ -1,4 +1,4 @@
-import React,{ useContext } from "react";
+import React, { useContext } from "react";
 import "./navbar.css";
 import Logo from "./logo.png";
 import pic from "./pic.jpg";
@@ -17,7 +17,7 @@ const Navbar = () => {
   const [searchuser, setSearchuser] = useState("");
   const [users, setusers] = useState([]);
   const location = useLocation();
-  useEffect(() => {}, [location]);
+  useEffect(() => { }, [location]);
 
   const navigate = useNavigate();
   function handleLogout() {
@@ -25,17 +25,16 @@ const Navbar = () => {
     navigate("/");
   }
 
-  function getallusers()
-  {
+  function getallusers() {
     axios
-    .get("http://localhost:5000/api/auth/getallusers")
-    .then((response) => {
-      console.log(response.data);
-      setusers(response.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .get("http://localhost:5000/api/auth/getallusers")
+      .then((response) => {
+        console.log(response.data);
+        setusers(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   const filteredUsers = users.filter((user) =>
@@ -45,7 +44,7 @@ const Navbar = () => {
     setUserDetailsValue(user);
     setSearchuser("");
     navigate('/profile');
-     
+
   }
 
   return (
@@ -68,7 +67,7 @@ const Navbar = () => {
               onChange={(e) => {
                 setSearchuser(e.target.value);
               }}
-              onFocus={()=>{
+              onFocus={() => {
                 getallusers();
               }}
             />
@@ -76,12 +75,11 @@ const Navbar = () => {
           {searchuser && (
             <div
               className="searched_users"
-              style={{ width: "100%" }}
             >
               {filteredUsers.length > 0 ? (
                 filteredUsers.map((user) => (
-                  <div key={user._id} className="users">
-                    <button onClick={()=>{handleClick(user)}}>{user.name}</button>
+                  <div key={user._id} className="users" onClick={() => { handleClick(user) }}>
+                    <p >{user.name}</p>
                   </div>
                 ))
               ) : (
@@ -94,15 +92,13 @@ const Navbar = () => {
 
       <div className="nav-right">
         <div
-          className={`nav-link1 ${
-            location.pathname === "/posts" ? "activeu" : " "
-          }`}
+          className={`nav-link1 ${location.pathname === "/posts" ? "activeu" : " "
+            }`}
         >
           <Link to="/posts">
             <i
-              className={`fa-solid fa-house fa-lg ${
-                location.pathname === "/posts" ? "active" : " "
-              }`}
+              className={`fa-solid fa-house fa-lg ${location.pathname === "/posts" ? "active" : " "
+                }`}
             ></i>{" "}
             <br />
             <p
@@ -114,15 +110,13 @@ const Navbar = () => {
           </Link>
         </div>
         <div
-          className={`nav-link1 ${
-            location.pathname === "/rooms" ? "activeu" : " "
-          }`}
+          className={`nav-link1 ${location.pathname === "/rooms" ? "activeu" : " "
+            }`}
         >
           <Link to="/rooms">
             <i
-              className={`fa-solid fa-briefcase fa-lg ${
-                location.pathname === "/rooms" ? "active" : " "
-              }`}
+              className={`fa-solid fa-briefcase fa-lg ${location.pathname === "/rooms" ? "active" : " "
+                }`}
             ></i>{" "}
             <br />
             <p
@@ -134,15 +128,13 @@ const Navbar = () => {
           </Link>
         </div>
         <div
-          className={`nav-link1 ${
-            location.pathname === "/chat" ? "activeu" : " "
-          }`}
+          className={`nav-link1 ${location.pathname === "/chat" ? "activeu" : " "
+            }`}
         >
           <Link to="/chat">
             <i
-              className={`fa-solid fa-comments fa-lg ${
-                location.pathname === "/chat" ? "active" : " "
-              }`}
+              className={`fa-solid fa-comments fa-lg ${location.pathname === "/chat" ? "active" : " "
+                }`}
             ></i>{" "}
             <br />
             <p
@@ -154,15 +146,13 @@ const Navbar = () => {
           </Link>
         </div>
         <div
-          className={`nav-link1 ${
-            location.pathname === "/assist" ? "activeu" : " "
-          }`}
+          className={`nav-link1 ${location.pathname === "/assist" ? "activeu" : " "
+            }`}
         >
           <Link to="/assist">
             <i
-              className={`fa-solid fa-user fa-lg ${
-                location.pathname === "/assist" ? "active" : " "
-              }`}
+              className={`fa-solid fa-user fa-lg ${location.pathname === "/assist" ? "active" : " "
+                }`}
             ></i>{" "}
             <br />
             <p
@@ -174,15 +164,13 @@ const Navbar = () => {
           </Link>
         </div>
         <div
-          className={`nav-link1 ${
-            location.pathname === "/weather" ? "activeu" : " "
-          }`}
+          className={`nav-link1 ${location.pathname === "/weather" ? "activeu" : " "
+            }`}
         >
           <Link to="/weather">
             <i
-              className={`fa-solid fa-cloud fa-lg ${
-                location.pathname === "/weather" ? "active" : " "
-              } `}
+              className={`fa-solid fa-cloud fa-lg ${location.pathname === "/weather" ? "active" : " "
+                } `}
             ></i>{" "}
             <br />
             <p
@@ -208,15 +196,13 @@ const Navbar = () => {
 
       <div id="footer">
         <div
-          className={`nav-link2 ${
-            location.pathname === "/posts" ? "activeu" : " "
-          }`}
+          className={`nav-link2 ${location.pathname === "/posts" ? "activeu" : " "
+            }`}
         >
           <Link to="/posts">
             <i
-              className={`fa-solid fa-house fa-lg ${
-                location.pathname === "/posts" ? "active" : " "
-              }`}
+              className={`fa-solid fa-house fa-lg ${location.pathname === "/posts" ? "active" : " "
+                }`}
             ></i>{" "}
             <br />
             <p
@@ -228,15 +214,13 @@ const Navbar = () => {
           </Link>
         </div>
         <div
-          className={`nav-link2 ${
-            location.pathname === "/rooms" ? "activeu" : " "
-          }`}
+          className={`nav-link2 ${location.pathname === "/rooms" ? "activeu" : " "
+            }`}
         >
           <Link to="/rooms">
             <i
-              className={`fa-solid fa-briefcase fa-lg ${
-                location.pathname === "/rooms" ? "active" : " "
-              }`}
+              className={`fa-solid fa-briefcase fa-lg ${location.pathname === "/rooms" ? "active" : " "
+                }`}
             ></i>{" "}
             <br />
             <p
@@ -248,15 +232,13 @@ const Navbar = () => {
           </Link>
         </div>
         <div
-          className={`nav-link2 ${
-            location.pathname === "/chat" ? "activeu" : " "
-          }`}
+          className={`nav-link2 ${location.pathname === "/chat" ? "activeu" : " "
+            }`}
         >
           <Link to="/chat">
             <i
-              className={`fa-solid fa-comments fa-lg ${
-                location.pathname === "/chat" ? "active" : " "
-              }`}
+              className={`fa-solid fa-comments fa-lg ${location.pathname === "/chat" ? "active" : " "
+                }`}
             ></i>{" "}
             <br />
             <p
@@ -268,15 +250,13 @@ const Navbar = () => {
           </Link>
         </div>
         <div
-          className={`nav-link2 ${
-            location.pathname === "/assist" ? "activeu" : " "
-          }`}
+          className={`nav-link2 ${location.pathname === "/assist" ? "activeu" : " "
+            }`}
         >
           <Link to="/assist">
             <i
-              className={`fa-solid fa-user fa-lg ${
-                location.pathname === "/assist" ? "active" : " "
-              }`}
+              className={`fa-solid fa-user fa-lg ${location.pathname === "/assist" ? "active" : " "
+                }`}
             ></i>{" "}
             <br />
             <p
@@ -288,15 +268,13 @@ const Navbar = () => {
           </Link>
         </div>
         <div
-          className={`nav-link2 ${
-            location.pathname === "/weather" ? "activeu" : " "
-          }`}
+          className={`nav-link2 ${location.pathname === "/weather" ? "activeu" : " "
+            }`}
         >
           <Link to="/weather">
             <i
-              className={`fa-solid fa-cloud fa-lg ${
-                location.pathname === "/weather" ? "active" : " "
-              } `}
+              className={`fa-solid fa-cloud fa-lg ${location.pathname === "/weather" ? "active" : " "
+                } `}
             ></i>{" "}
             <br />
             <p
