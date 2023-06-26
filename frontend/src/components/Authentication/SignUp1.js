@@ -10,19 +10,17 @@ import signup1 from './signup1.png';
 import bg1 from './4.svg'
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import LoadingBar from 'react-top-loading-bar'
+import { set } from 'mongoose';
 
 
 const SignUp1 = () => {
   const [showSignUp, setShowSignIn] = useState(false);
-
+  const [progress, setProgress] = useState(0)
   const [formData, setFormData] = useState({ mobile: '', password: '', confirmpassword: '' });
   const Navigate = useNavigate();
 
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      Navigate('/dashboard');
-    }
-  });
+
 
   if (showSignUp) {
     return <SignIn />
@@ -42,6 +40,7 @@ const SignUp1 = () => {
       return;
     }
     else {
+      setProgress(30)
       const res = await fetch('http://localhost:5000/api/auth/createuser', {
         method: 'POST',
         headers: {
@@ -49,13 +48,15 @@ const SignUp1 = () => {
         },
         body: JSON.stringify({ phone: formData.mobile, password: formData.password })
       });
+      setProgress(70)
       const data = await res.json();
       if (data.success === false) {
         alert(data.error);
         return;
       }
+      setProgress(100)
       localStorage.setItem('token', data.authToken);
-      console.log(localStorage.getItem('token'));
+      console.log(data);
       Navigate('/signup2')
     }
   }
@@ -71,6 +72,11 @@ const SignUp1 = () => {
     <div>
 
       <Navbar />
+      <LoadingBar
+        color='#00ff15'
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
       <img src={signup1} alt="signup1" className='bg' />
       <img src={bg1} alt="bg1" className='bg1' />
       <div className="heading">

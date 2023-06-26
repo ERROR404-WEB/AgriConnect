@@ -9,11 +9,12 @@ import signup1 from './1.svg';
 import bg1 from './4.svg'
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+import LoadingBar from 'react-top-loading-bar'
 
 const SignIn = () => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [formData, setFormData] = useState({ phone: '', password: '' });
+  const [progress, setProgress] = useState(0)
   const Navigate = useNavigate();
 
   useEffect(() => {
@@ -30,6 +31,7 @@ const SignIn = () => {
   }
 
   const handleLogin = async (e) => {
+    setProgress(30)
     e.preventDefault();
     const res = await fetch('http://localhost:5000/api/auth/login', {
       method: 'POST',
@@ -38,21 +40,27 @@ const SignIn = () => {
       },
       body: JSON.stringify({ phone: formData.phone, password: formData.password }),
     });
-
+    setProgress(70)
     const data = await res.json();
 
     if (data.success === false) {
       alert(data.error);
       return;
     }
+    setProgress(100)
     localStorage.setItem('token', data.authToken);
-
+    
     Navigate('/dashboard')
 
   }
   return (
     <>
       <Navbar />
+      <LoadingBar
+        color='#00ff15'
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
       <img src={signup1} alt="signup1" className='bg' />
       <img src={bg1} alt="bg1" className='bg1' />
       <div className="heading">
