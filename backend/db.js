@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const mongoURI = "mongodb+srv://kiran:kiran@cluster0.siuvs9s.mongodb.net/agriconnect"
-// const mongoURI ="mongodb://0.0.0.0:27017/farmbank"
+// const mongoURI = "mongodb+srv://kiran:kiran@cluster0.siuvs9s.mongodb.net/agriconnect"
+const mongoURI ="mongodb://0.0.0.0:27017/farmbank"
 
 
 

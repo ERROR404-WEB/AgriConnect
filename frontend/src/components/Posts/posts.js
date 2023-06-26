@@ -4,7 +4,7 @@ import './Posts.scss'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import PostItems from './postItem';
+import PostItem from './PostItem';
 import PostCard from './PostTemplate';
 import videoIcon from './images/video-icon.png';
 import userIcon from './images/user.svg';
@@ -49,7 +49,7 @@ function PostsAndDetails() {
                 <span>Article</span>
               </button>
             </div>
-            <PostItems modalShow={modalShow} setModalShow={setModalShow} typing={typing} setTyping={setTyping}/>
+            <PostItem modalShow={modalShow} setModalShow={setModalShow} typing={typing} setTyping={setTyping}/>
           </div>
         </Col>
         <Col><PostCard image = {photoIcon} textdata={"hello "} /></Col>

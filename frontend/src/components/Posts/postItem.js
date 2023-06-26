@@ -50,7 +50,7 @@ function PostModal(props) {
   );
 }
 
-export default function PostItems({modalShow, setModalShow, typing, setTyping}) {
+export default function PostItem({modalShow, setModalShow, typing, setTyping}) {
   return (
     <>
       <PostModal
