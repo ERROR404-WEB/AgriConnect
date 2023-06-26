@@ -10,17 +10,105 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import { LinearProgress } from '@mui/material'
+
 
 import { useNavigate } from 'react-router-dom';
 
+
+import storage from '../../firebaseConfig'
+import {ref,uploadBytesResumable,getDownloadURL} from 'firebase/storage'
+
+
+
 export default function Profile({ data , setData ,showEdit }) {
     const [show, setShow] = useState(false);
+    console.log(data);
+    const [eData,seteData]=useState({name:data.name ,profilepic:data.profilepic ,bannerpic:data.bannerpic});
+    const [profilepicUploaded,setProfilepicUploaded]=useState(0);
+    const [bannerpicUploaded,setBannerpicUploaded]=useState(0);
+
+
+    const handleUpload2 = (file) => {
+        if (!file) {
+        alert("Please upload an image first!");
+        }
+        
+        const storageRef = ref(storage, `/files/${file.name}`);
+        
+        const uploadTask = uploadBytesResumable(storageRef, file);
+        
+        uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+        const percent = Math.round(
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+
+        if(percent===100)
+          setBannerpicUploaded(0);
+
+        else
+            setBannerpicUploaded(percent);
+        
+
+        },
+        (err) => console.log(err),
+        () => {
+        
+
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          seteData({...eData,bannerpic:url});
+        });
+        }
+        );
+        };
+
+        
+        const handleUpload1 = (file) => {
+            if (!file) {
+            alert("Please upload an image first!");
+            }
+            
+            const storageRef = ref(storage, `/files/${file.name}`);
+            
+            const uploadTask = uploadBytesResumable(storageRef, file);
+            
+            uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+            const percent = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+
+            if(percent===100)
+                setProfilepicUploaded(0);
+    
+                else
+                    setProfilepicUploaded(percent);
+            
+    
+            },
+            (err) => console.log(err),
+            () => {
+            
+    
+            getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+              seteData({...eData,profilepic:url});
+            });
+            }
+            );
+            };
+    
+            
+
+
+
     const handleClose = () => {
         setShow(false);
     }
     const handleShow = () => setShow(true);
-    const [eData, seteData] = useState({ name: data.name});
-
+    
     const handleChange = (e) => {
 
         seteData({ ...eData, [e.target.name]: e.target.value })
@@ -33,9 +121,10 @@ export default function Profile({ data , setData ,showEdit }) {
             'Content-Type': 'application/json',
             'auth-token': localStorage.getItem('token')
           },
-          body: JSON.stringify(eData)
+          body: JSON.stringify(eData),
         })
         const data1 = await response.json();
+        console.log(data1);
         setData(data1.user);
         setShow(false);
     }
@@ -63,22 +152,32 @@ export default function Profile({ data , setData ,showEdit }) {
                             controlId="exampleForm.ControlTextarea1"
                         >
                             <Form.Label>Profile Picture</Form.Label>
-                            <Form.Control
+                            <Form.Control style={{display:`${profilepicUploaded===0?'block':'none'}`}}
                                 type="file"
 
                                 autoFocus
+
+                                onChange={(e)=>{
+                                    handleUpload1(e.target.files[0]);
+                                }}
                             />
+                            <linearProgress style={{display:`${profilepicUploaded!==0 ? 'block' :'none'}`}} variant="determinate" value={profilepicUploaded} />
                         </Form.Group>
                         <Form.Group
                             className="mb-3"
                             controlId="exampleForm.ControlTextarea1"
                         >
                             <Form.Label>Cover Picture</Form.Label>
-                            <Form.Control
+                            <Form.Control style={{display:`${bannerpicUploaded===0?'block':'none'}`}}
                                 type="file"
 
                                 autoFocus
+
+                                onChange={(e)=>{
+                                    handleUpload2(e.target.files[0]);
+                                }}
                             />
+                            <LinearProgress style={{display:`${bannerpicUploaded!==0 ? 'block' :'none'}`}} variant="determinate" value={bannerpicUploaded} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -96,10 +195,10 @@ export default function Profile({ data , setData ,showEdit }) {
 
                 <div className="profile-section">
                     <div className="banner-img">
-                        <img src={banner} alt="Banner" />
+                        <img src={data.bannerpic} alt="Banner" />
                     </div>
                     <div className="profile-picture">
-                        <img src={pfp} alt="ProfilePicture" />
+                        <img src={data.profilepic} alt="ProfilePicture" />
                     </div>
 
                 </div>
