@@ -33,6 +33,8 @@ export default function Dashboard(props) {
         }
         else {
           localStorage.setItem("userid",data._id);
+          localStorage.setItem("role",data.role);
+          
           setProfileData({ profilepic:data.profilepic ,bannerpic:data.bannerpic , name: data.name, address: data.address, email: data.email, phone: data.phone , bio:data.bio,role:data.role ,fb:data.fb,insta:data.insta,whatsapp:data.whatsapp,telegram:data.telegram,gmail:data.gmail});
         }
 

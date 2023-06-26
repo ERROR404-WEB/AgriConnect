@@ -17,8 +17,11 @@ import { UserProvider } from './components/UserContext/UserContext';
 
 import { BrowserRouter as Router,  Route, Routes } from 'react-router-dom';
 
+import InvestorRoom from './components/Rooms/InvestorRooms';
+import Room from './components/Rooms/Room';
 
 function App() {
+  console.log(localStorage.getItem("role"));
   return (
     <div className="App">
       <UserProvider>
@@ -35,7 +38,8 @@ function App() {
             <Route exact path='/chat' element={<Chat />} />
             <Route exact path='/assist' element={<Assist />} />
             <Route exact path='/weather' element={<Weather />} />
-            <Route exact path='/rooms' element={<Rooms />} />
+            <Route exact path='/rooms' element={localStorage.getItem("role")=="Investor" ? <InvestorRoom/>  : <Rooms/> } />
+            <Route exact path='/room/:id' element={<Room/>} />
           </Routes>
           
       </Router>

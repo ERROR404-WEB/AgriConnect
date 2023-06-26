@@ -22,7 +22,15 @@
     "react-top-loading-bar": "^2.3.1",
     "sass": "^1.63.6",
     "socket.io-client": "^4.7.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@fortawesome/fontawesome-free": "^6.4.0",
+    "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "react-scripts start",
