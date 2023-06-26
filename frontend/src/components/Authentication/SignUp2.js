@@ -11,11 +11,12 @@ import signup1 from './signup2.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import LoadingBar from 'react-top-loading-bar';
 
 const SignUp2 = () => {
   const [formData, setFormData] = useState({ name: '', role: 'User', email: '', address: '', city: '', state: '', pincode: '' });
   const navigate = useNavigate();
-
+  const [progress, setProgress] = useState(0);
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -52,7 +53,7 @@ const SignUp2 = () => {
       alert("Enter a valid role");
     }
     else {
-      //console.log(formData);
+      setProgress(30);
       const res = await fetch('http://localhost:5000/api/auth/createuser/details',
         {
           method: 'POST',
@@ -62,7 +63,9 @@ const SignUp2 = () => {
           },
           body: JSON.stringify({ name: formData.name, role: formData.role, email: formData.email, address: formData.address, city: formData.city, state: formData.state, pincode: formData.pincode })
         });
+      setProgress(70);
       const data = await res.json();
+      setProgress(100);
       console.log(data);
       navigate('/dashboard');
     }
@@ -71,6 +74,12 @@ const SignUp2 = () => {
   return (
     <>
       <Navbar />
+      <LoadingBar
+        color='#00ff15'
+        progress={progress}
+
+        onLoaderFinished={() => setProgress(0)}
+      />
       <img src={signup1} alt="signup1" className='bg2' />
 
       <div className="heading2">
