@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-
+import LoadingBar from 'react-top-loading-bar'
 
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
@@ -20,14 +20,17 @@ export default function Chat() {
   const [msgdata, setMsgdata] = useState([]);
   const [senderid, setSenderid] = useState("");
   const [responsive, setResponsive] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const navigate = useNavigate();
   useEffect(() => {
+    setProgress(20);
     setSenderid(localStorage.getItem("userid"));
     axios
       .post("http://localhost:5000/api/auth/getchatusers", { senderid })
       .then((res) => {
         setUsers(res.data);
+        setProgress(100);
       })
       .catch((error) => {
         console.error("Error");
@@ -122,6 +125,11 @@ export default function Chat() {
 
   return (
     <div>
+      <LoadingBar
+        color='rgb(0, 255, 4)'
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
       <Navbar />
       <div className="main-container">
 

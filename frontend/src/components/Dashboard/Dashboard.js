@@ -3,13 +3,14 @@ import Profile from './Profile'
 import Navbar from '../Navbar/Navbar'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import LoadingBar from 'react-top-loading-bar' 
 
 
 export default function Dashboard(props) {
   const Navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [profileData, setProfileData] = useState({ name: '', address: '', email: '', phone: '' ,bio:'',role:''});
-
+  const [progress, setProgress] = useState(0)
   useEffect(() => {
 
     if (localStorage.getItem('token') == null) {
@@ -19,6 +20,7 @@ export default function Dashboard(props) {
     else {
       setShow(true);
       const getProfile = async () => {
+        setProgress(30);
         const response = await fetch('http://localhost:5000/api/auth/getuser', {
           method: 'POST',
           headers: {
@@ -26,12 +28,14 @@ export default function Dashboard(props) {
             'auth-token': localStorage.getItem('token')
           }
         })
+        setProgress(70);
         const data = await response.json();
         if (data.success === false) {
           alert(data.error);
           Navigate('/signin');
         }
         else {
+          setProgress(100);
           localStorage.setItem("userid",data._id);
           localStorage.setItem("role",data.role);
           
@@ -51,6 +55,11 @@ export default function Dashboard(props) {
       {show && (
         <>
           <Navbar />
+          <LoadingBar
+        color='rgb(0, 255, 4)'
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
           <div className="container " >
 
             <Profile data={profileData} setData={setProfileData}  showEdit={true} />

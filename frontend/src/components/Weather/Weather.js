@@ -4,24 +4,28 @@ import { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
+import LoadingBar from 'react-top-loading-bar'
 
 export default function Weather() {
 
 
 
   const [city, setCity] = useState('india')
-
+  const [progress, setProgress] = useState(0)
   const [weather, setWeather] = useState({ city: '', wind: '', maxtemp: '', mintemp: '', humidity: '', pressure: '', description: '', imgurl: '' })
 
 
   const fetchWeather = async () => {
+    setProgress(30);
     const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=d885aa1d783fd13a55050afeef620fcb`);
+    setProgress(70);
     const data = await res.json();
     if (data.cod === "404") {
       alert("City Not Found")
       return;
     }
     else {
+      setProgress(100);
       setWeather({
         maxtemp: data.main.temp_max,
         mintemp: data.main.temp_min,
@@ -45,6 +49,11 @@ export default function Weather() {
   return (
     <div>
       <Navbar />
+      <LoadingBar
+        color='rgb(0, 255, 4)'
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
       <div className="container" style={{ display: "flex", margin: "2rem", justifyContent: "center", alignItems: "center" }}>
         <Form.Control type="text" name="city" onChange={handleOnchange} value={city} placeholder="Enter City" style={{ backgroundColor: "rgba(4, 255, 0, 0.101)", width: "15rem", marginRight: "1rem", marginLeft: "1rem" }} />
         <Button variant="success" type="submit" onClick={() => { fetchWeather() }}>

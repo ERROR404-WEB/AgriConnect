@@ -57,7 +57,7 @@ const SignIn = () => {
     <>
       <Navbar />
       <LoadingBar
-        color='#00ff15'
+        color='#00ff151'
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />
