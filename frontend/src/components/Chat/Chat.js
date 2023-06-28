@@ -8,6 +8,8 @@ import ChatLogo from './chatlogo.svg'
 
 import axios from "axios";
 import "./main.css";
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 
 
 export default function Chat() {
@@ -151,7 +153,13 @@ export default function Chat() {
                   chat(user.name);
                   setResponsive(true);
                 }}>
-                  <button >
+                  <button  style={{ display: "flex" }}>
+                  <Avatar
+                        alt="pic"
+                        src={user.profilepic}
+                        style={{ marginLeft: "15px", marginRight: "15px" }}
+                        sx={{ width: 30, height: 30 }}
+                      />
                     {user.name}
                   </button>
                 </div>

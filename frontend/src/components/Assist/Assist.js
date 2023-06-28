@@ -23,17 +23,17 @@ export default function Assist() {
     }
     getallusers();
 
-  },[])
+  }, [])
   return (
     <div>
-      
+
       <Navbar />
 
       <div className='containerr'>
 
         {
           users.map((element) => {
-            return <Cards name={element.name} bio={element.bio} id={element._id} key={element._id} user={element}/>
+            return <Cards name={element.name} bio={element.bio} id={element._id} key={element._id} user={element} img={element.profilepic} />
           })}
 
 

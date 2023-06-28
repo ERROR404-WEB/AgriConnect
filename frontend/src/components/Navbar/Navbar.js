@@ -1,24 +1,50 @@
 import React, { useContext } from "react";
 import "./navbar.css";
 import Logo from "./logo.png";
-import pic from "./pic.jpg";
+import pic from "./profile.svg";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 import { useNavigate } from "react-router-dom";
 import { UserContext } from '../UserContext/UserContext';
 
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 
 
 const Navbar = () => {
   const { setUserDetailsValue } = useContext(UserContext);
   const [searchuser, setSearchuser] = useState("");
   const [users, setusers] = useState([]);
+  const [profilePic, setProfilePic] = useState(pic);
+
   const location = useLocation();
+  const Navigate = useNavigate();
+
   useEffect(() => { }, [location]);
 
+  useEffect(() => {
+    const profile = async () => {
+
+      const response = await fetch('http://localhost:5000/api/auth/getuser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': localStorage.getItem('token')
+        }
+      })
+      const data = await response.json();
+      if (data.success === false) {
+        alert(data.error);
+        Navigate('/signin');
+      }
+      else {
+        setProfilePic(data.profilepic);
+      }
+    }
+    profile();
+  }, [])
   const navigate = useNavigate();
   function handleLogout() {
     localStorage.removeItem("token");
@@ -79,7 +105,17 @@ const Navbar = () => {
               {filteredUsers.length > 0 ? (
                 filteredUsers.map((user) => (
                   <div key={user._id} className="users" onClick={() => { handleClick(user) }}>
-                    <p >{user.name}</p>
+                    <div className="box" style={{ display: "flex" }}>
+
+                      <Avatar
+                        alt="pic"
+                        src={user.profilepic}
+                        style={{ marginRight: "10px" }}
+                        sx={{ width: 30, height: 30 }}
+                      />
+                      <p >{user.name}</p>
+
+                    </div>
                   </div>
                 ))
               ) : (
@@ -183,7 +219,7 @@ const Navbar = () => {
         </div>
         <div className="profile-pic " style={{ marginRight: "15px" }}>
           <Link to="/dashboard">
-            <img src={pic} alt="profile" className="pic " />
+            <img src={profilePic} alt="profile" className="pic " />
           </Link>
         </div>
         <div className="dropown">
