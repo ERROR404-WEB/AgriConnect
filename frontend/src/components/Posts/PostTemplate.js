@@ -1,8 +1,8 @@
-import * as React from 'react';
+import  React , {useState ,useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
+//import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
@@ -11,9 +11,13 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+//import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+//import MoreVertIcon from '@mui/icons-material/MoreVert';
+import axios from 'axios';
+import userIcon from './images/user.svg';
+import "./postComments.css";
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -26,49 +30,117 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard() {
-  const [expanded, setExpanded] = React.useState(false);
+export default function PostCard(props) {
+
+  const post = props.post;
+
+  //console.log(post);
+
+  const [expanded, setExpanded] = useState(false);
+
+  const [comments,setComments]=useState([]);
+
+  const [commentsIndex,setCommentsIndex]=useState(0);
+
+  const [likes,setLikes]=useState(post.likes);
+
+  const [isLiked,setIsLiked]=useState(false);
+
+  const [comment,setComment]=useState('');
+
+  useEffect(()=>{
+    axios.post('http://localhost:5000/api/posts/likeCheck',{
+      user:localStorage.getItem('userid'),
+      post:post._id,
+    }).then((res)=>{
+      if(res.data==true)
+      setIsLiked(true);
+      else
+      setIsLiked(false);
+    })
+  },[]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+
+
+    if(expanded===false)
+    {
+    axios.post('http://localhost:5000/api/posts/getComments',{
+      id:post._id,
+      index:commentsIndex,
+    }).then((res)=>{
+      if(res.data.comments.length)
+      {
+        if(commentsIndex==0)
+      setCommentsIndex(commentsIndex+1);
+      setComments((prev)=>{
+        return [...prev,...res.data.comments];
+      });
+      }
+    })
+  }
+
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ width:'60%' ,minWidth:'30rem' , margin:'1rem' }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
-          </Avatar>
+          <>
+          <Avatar sx={{ bgcolor: red[500] ,marginRight :'1rem' }} src={post.owner.profilepic}/>
+          <h3>{post.owner.name}</h3>
+          </>
         }
+
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          <h4>{post.time}</h4>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        
+        title={<h1>{post.title}</h1>}
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
-      />
+      <img src={post.image} style={{width:'auto',height:'35vh'}}/>
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+          {post.content}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" sx={{color : `${isLiked ? 'red' :'lightgrey' }`}} onClick={()=>{
+          setIsLiked(!isLiked);
+          if(isLiked)
+          {
+            setLikes(likes-1);
+            axios.post('http://localhost:5000/api/posts/unlikePost',{
+              user:localStorage.getItem('userid'),
+              post:post._id,
+            }).catch((err)=>{
+              if(err)
+              {
+              alert(err);
+              window.location.reload();
+              }
+            }
+            )
+          }
+          else
+          {
+            setLikes(likes+1);
+            axios.post('http://localhost:5000/api/posts/likePost',{
+              user:localStorage.getItem('userid'),
+              post:post._id,
+            }).catch((err)=>{
+              if(err)
+              {
+              alert(err);
+              window.location.reload();
+              }
+            })
+          }
+        }}>
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        <h5 style={{marginTop:'1%'}}>{likes}</h5>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -80,31 +152,72 @@ export default function RecipeReviewCard() {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-            aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
-            medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
-            occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a
-            large plate and set aside, leaving chicken and chorizo in the pan. Add
-            pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
-            stirring often until thickened and fragrant, about 10 minutes. Add
-            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is absorbed,
-            15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
-            mussels, tucking them down into the rice, and cook again without
-            stirring, until mussels have opened and rice is just tender, 5 to 7
-            minutes more. (Discard any mussels that don&apos;t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
-          </Typography>
+        <hr/>
+        <div className='post-prompt-text' style={{paddingRight:'3%'}}>
+
+
+          <img src={userIcon} alt="user-image" className="user-icon" style={{height:'7%',width:'7%'}}/>
+
+
+          <input className='post-button' placeholder="write comment" style={{marginRight:'2%'}} onChange={(e)=>{
+            setComment(e.target.value);
+          }}/>
+
+
+          <button style={{backgroundColor:'blue'}}  onClick={()=>{
+
+            axios.post('http://localhost:5000/api/posts/createComment',{
+              post:post._id,
+              user:localStorage.getItem('userid'),
+              content:comment,
+            }).then((res)=>{
+              if(res.data=="yes")
+              alert("comment added succesfully");
+              else
+              alert("oops some error occured");
+            })
+
+          }}>ok</button>
+        </div>
+        <hr/>
+
+          {
+            comments.map((comment,i)=>{
+              return(
+                <div key={comment._id} className='comment'>
+                  <img className='profile-pic' src={comment.owner.profilepic}/>
+                  <div className='comment-content'>
+                    <h4>{comment.owner.name}</h4>
+                    <div className='comment-bio'>
+                    <p>{comment.owner.bio}</p>
+                    </div>
+                    <p>{comment.content}</p>
+                    <div style={{width:'100%',display:'flex',justifyContent:'flex-end'}}>
+                    <p>{comment.time}</p>
+                    </div>
+                  </div>
+                </div>
+              )
+            })
+          }
+
+          <button style={{width:'100%'}} onClick={()=>{
+            axios.post('http://localhost:5000/api/posts/getComments',{
+              id:post._id,
+              index:commentsIndex,
+            }).then((res)=>{
+              if(res.data.commeents.length)
+              {
+                setComments((prev)=>{
+                  return [...prev,...res.data.comments];
+                })
+                setCommentsIndex(commentsIndex+1);
+              }
+            })
+          }}>
+            load more comments
+          </button>
+
         </CardContent>
       </Collapse>
     </Card>

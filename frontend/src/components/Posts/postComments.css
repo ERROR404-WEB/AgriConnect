@@ -1,0 +1,29 @@
+.profile-pic{
+    height: 6vh;
+    width: 6vh;
+    border-radius: 50%;
+}
+
+.comment-bio{
+    width: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 1.5Vmin;
+    text-overflow: ellipsis !important;
+}
+
+.comment{
+    display: flex;
+}
+
+.comment-content{
+    text-align: start;
+    padding-left: 3%;
+    padding-right: 3%;
+    border-radius: 15px;
+    background-color: lightgray;
+    margin-bottom: 2%;
+    margin-left: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}

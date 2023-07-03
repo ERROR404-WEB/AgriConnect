@@ -77,8 +77,11 @@ const SignUp1 = () => {
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />
+
       <img src={signup1} alt="signup1" className='bg' />
+
       <img src={bg1} alt="bg1" className='bg1' />
+      
       <div className="heading">
         <h3>Sign Up</h3>
       </div>

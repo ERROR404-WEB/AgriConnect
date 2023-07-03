@@ -26,6 +26,9 @@ app.use(express.json());
 
 app.use('/api/auth',require('./routes/auth'));
 app.use('/api/rooms',require('./routes/rooms'));
+app.use('/api/posts',require('./routes/posts'));
+
+
 
 var socketDef=null;
 io.on('connection',(socket)=>{
@@ -67,9 +70,6 @@ io.on('connection',(socket)=>{
         socket.to(req.roomId).emit("receive reject offer",req);
     }
     );
-
-
-
 }
 );
 
@@ -79,11 +79,9 @@ const sendNotification=(message)=>{
 }
 
 
-
 connectToMongo();
 
 module.exports=sendNotification;
-
 
 server.listen(port,()=>{
     console.log(`Server is running on port ${port}`);

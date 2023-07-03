@@ -1,129 +1,174 @@
-.createRoom{
+.createRoom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: none;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 100%;
+  max-width: 30rem;
+  min-width: 15rem;
+  background-color: white;
+  padding: 3%;
+  border-radius: 10px;
+}
+
+.createRoomDiv {
+  /*style={{padding:'3%',backgroundColor:'blue',height:'100%',width:'100%',fontSize:'10Vmax',display:'flex',alignItems:'center',justifyContent:'center',textAlign:'center',color:'white',fontWeight:5000*/
+  display: flex;
+  /* padding: 3%; */
+  background-color: rgb(0, 255, 38);
+  height: 100%;
+  width: 100%;
+  /* font-size: 10Vmax; */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  /* font-weight: 10000; */
+}
+
+.joinRoomModal {
+  height: fit-content;
+  padding: 1%;
+  width: 100%;
+  max-width: 30rem;
+  min-width: 25rem;
+  position: relative;
+  border: none;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: white;
+  border-radius: 10px;
+}
+
+.roomButton {
+  margin-top: 3%;
+  color: white;
+}
+
+.outerRoom {
+  width: 100vw;
+  height: 93vh;
+  padding: 1%;
+}
+
+.Room {
+  display: flex;
+  height: 98%;
+  width: 98%;
+  margin: 1%;
+}
+
+.accepetedAndAddOffers {
+  height: 100%;
+  width: 40%;
+}
+
+.acceptedOffers {
+  height: 50%;
+  width: 100%;
+  border: 1px solid black;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.addOffer {
+  height: 50%;
+  width: 100%;
+  border: 1px solid black;
+  padding: 3%;
+}
+
+.offers {
+  height: 100%;
+  width: 60%;
+  border: 1px solid black;
+  display: flex;
+  overflow-y: scroll;
+  flex-direction: column;
+}
+
+.offer {
+  height: fit-content;
+  width: 100%;
+  max-width: 20rem;
+  border: 1px solid black;
+  background-color: #2192ff;
+  margin: 1%;
+  min-width: 10rem;
+  border-radius: 10px;
+  padding: 1%;
+}
+
+.offerBody {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.offerHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.background {
+  background-image: url(./left.png);
+  background-repeat: no-repeat;
+  background-size: 50%;
+  height: 95vh;
+}
+.btncontainer {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  height: 100%;
+}
+.createbtn {
+  background-color: rgb(0, 255, 38) !important;
+  margin-right: 15% !important;
+  margin-bottom: 5% !important;
+  color: white;
+  height: 7rem;
+  width: 9rem;
+}
+.floating-icon {
+  margin-top: 30%;
+  margin-right: 20px;
+}
+.cards{
+  display: flex;
+
+
+}
+@media only screen and (max-width: 767px) {
+  .background {
+    background-image: url(./left.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: bottom;
+    height: 70vh;
+    overflow: hidden;
+  }
+  .btncontainer {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    position: relative;
-    border:none;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 100%;
-    max-width: 30rem;
-    min-width: 15rem;
-    background-color: white;
-    padding:3%;
-    border-radius: 10px;
-}
 
-.createRoomDiv{
-    /*style={{padding:'3%',backgroundColor:'blue',height:'100%',width:'100%',fontSize:'10Vmax',display:'flex',alignItems:'center',justifyContent:'center',textAlign:'center',color:'white',fontWeight:5000*/
-    display: flex;
-    /* padding: 3%; */
-    background-color: rgb(0, 255, 38);
+    /* align-items: center; */
     height: 100%;
-    width: 100%;
-    /* font-size: 10Vmax; */
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    cursor: pointer;
-    border-radius: 10px;
-    /* font-weight: 10000; */
-}
-
-
-.joinRoomModal{
-    height: fit-content;
-    padding: 1%;
-    width: 100%;
-    max-width: 30rem;
-    min-width: 25rem;
-    position: relative;
-    border:none;
-    left: 50%;
-    transform: translate(-50%, 0);
-    background-color: white;
-    border-radius: 10px;
-}
-
-.roomButton{
-    margin-top: 3%;
-    color: white;
-}
-
-
-.outerRoom{
-    width:100vw;
-    height: 93vh;
-    padding: 1%;
-}
-
-.Room{
-    display: flex;
-    height: 98%;
-    width: 98%;
-    margin: 1%;
-}
-
-.accepetedAndAddOffers{
-    height: 100%;
-    width: 40%;
-}
-
-
-.acceptedOffers{
-    height: 50%;
-    width: 100%;
-    border: 1px solid black;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
-
-.addOffer{
-    height: 50%;
-    width: 100%;
-    border: 1px solid black;
-    padding: 3%;
-}
-
-
-.offers{
-    height: 100%;
-    width: 60%;
-    border: 1px solid black;
-    display: flex;
-    overflow-y: scroll;
+  }
+  .createbtn {
+    margin-bottom: 90% !important;
+    margin-right: 0% !important;
+  }
+  .cards{
     flex-direction: column;
-}
-
-.offer{
-    height:fit-content;
-    width: 100%;
-    max-width: 20rem;
-    border:1px solid black;
-    background-color: #2192FF;
-    margin: 1%;
-    min-width: 10rem;
-    border-radius: 10px;
-    padding:1%;
-}
-
-
-
-
-
-.offerBody{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.offerHeader{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+  }
 }
