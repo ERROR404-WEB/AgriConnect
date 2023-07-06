@@ -171,7 +171,7 @@ export default function PostCard(props) {
               user:localStorage.getItem('userid'),
               content:comment,
             }).then((res)=>{
-              if(res.data=="yes")
+              if(res.data==="yes")
               alert("comment added succesfully");
               else
               alert("oops some error occured");

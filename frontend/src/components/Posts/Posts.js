@@ -8,9 +8,7 @@ import PostItem from './PostItem';
 import PostCard from './PostTemplate';
 import videoIcon from './images/video-icon.png';
 import userIcon from './images/user.svg';
-import photoIcon from './images/photo-icon.svg';
-import articleIcon from './images/event-icon.png';
-import Form from 'react-bootstrap/Form';
+
 import PostTemplate from './PostTemplate';
 import axios from 'axios';
 

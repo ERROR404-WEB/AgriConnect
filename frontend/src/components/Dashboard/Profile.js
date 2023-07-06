@@ -18,88 +18,88 @@ import { useNavigate } from 'react-router-dom';
 
 import storage from '../../firebaseConfig'
 
-import {ref,uploadBytesResumable,getDownloadURL} from 'firebase/storage'
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 
 
 
-export default function Profile({ data , setData ,showEdit }) {
+export default function Profile({ data, setData, showEdit }) {
     const [show, setShow] = useState(false);
     console.log(data);
-    const [eData,seteData]=useState({name:data.name ,profilepic:data.profilepic ,bannerpic:data.bannerpic});
-    const [profilepicUploaded,setProfilepicUploaded]=useState(0);
-    const [bannerpicUploaded,setBannerpicUploaded]=useState(0);
+    const [eData, seteData] = useState({ name: data.name, profilepic: data.profilepic, bannerpic: data.bannerpic });
+    const [profilepicUploaded, setProfilepicUploaded] = useState(0);
+    const [bannerpicUploaded, setBannerpicUploaded] = useState(0);
 
 
     const handleUpload2 = (file) => {
         if (!file) {
-        alert("Please upload an image first!");
-        }
-        
-        const storageRef = ref(storage, `/files/${file.name}`);
-        
-        const uploadTask = uploadBytesResumable(storageRef, file);
-        
-        uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-        const percent = Math.round(
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-
-        if(percent===100)
-          setBannerpicUploaded(0);
-
-        else
-            setBannerpicUploaded(percent);
-        },
-        (err) => console.log(err),
-        () => {
-        
-
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          seteData({...eData,bannerpic:url});
-        });
-        }
-        );
-        };
-
-        
-        const handleUpload1 = (file) => {
-            if (!file) {
             alert("Please upload an image first!");
-            }
-            
-            const storageRef = ref(storage, `/files/${file.name}`);
-            
-            const uploadTask = uploadBytesResumable(storageRef, file);
-            
-            uploadTask.on(
+        }
+
+        const storageRef = ref(storage, `/files/${file.name}`);
+
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on(
             "state_changed",
             (snapshot) => {
-            const percent = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
+                const percent = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
 
-            if(percent===100)
-                setProfilepicUploaded(0);
-    
+                if (percent === 100)
+                    setBannerpicUploaded(0);
+
                 else
-                    setProfilepicUploaded(percent);
-            
-    
+                    setBannerpicUploaded(percent);
             },
             (err) => console.log(err),
             () => {
-            
-    
-            getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-              seteData({...eData,profilepic:url});
-            });
+
+
+                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                    seteData({ ...eData, bannerpic: url });
+                });
             }
-            );
-            };
-    
-            
+        );
+    };
+
+
+    const handleUpload1 = (file) => {
+        if (!file) {
+            alert("Please upload an image first!");
+        }
+
+        const storageRef = ref(storage, `/files/${file.name}`);
+
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const percent = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+
+                if (percent === 100)
+                    setProfilepicUploaded(0);
+
+                else
+                    setProfilepicUploaded(percent);
+
+
+            },
+            (err) => console.log(err),
+            () => {
+
+
+                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                    seteData({ ...eData, profilepic: url });
+                });
+            }
+        );
+    };
+
+
 
 
 
@@ -107,7 +107,7 @@ export default function Profile({ data , setData ,showEdit }) {
         setShow(false);
     }
     const handleShow = () => setShow(true);
-    
+
     const handleChange = (e) => {
 
         seteData({ ...eData, [e.target.name]: e.target.value })
@@ -115,12 +115,12 @@ export default function Profile({ data , setData ,showEdit }) {
     const saveChanges = async () => {
 
         const response = await fetch('http://localhost:5000/api/auth/createuser/details', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'auth-token': localStorage.getItem('token')
-          },
-          body: JSON.stringify(eData),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('token')
+            },
+            body: JSON.stringify(eData),
         })
         const data1 = await response.json();
         console.log(data1);
@@ -151,32 +151,32 @@ export default function Profile({ data , setData ,showEdit }) {
                             controlId="exampleForm.ControlTextarea1"
                         >
                             <Form.Label>Profile Picture</Form.Label>
-                            <Form.Control style={{display:`${profilepicUploaded===0?'block':'none'}`}}
+                            <Form.Control style={{ display: `${profilepicUploaded === 0 ? 'block' : 'none'}` }}
                                 type="file"
 
                                 autoFocus
 
-                                onChange={(e)=>{
+                                onChange={(e) => {
                                     handleUpload1(e.target.files[0]);
                                 }}
                             />
-                            <linearProgress style={{display:`${profilepicUploaded!==0 ? 'block' :'none'}`}} variant="determinate" value={profilepicUploaded} />
+                            <linearProgress style={{ display: `${profilepicUploaded !== 0 ? 'block' : 'none'}` }} variant="determinate" value={profilepicUploaded} />
                         </Form.Group>
                         <Form.Group
                             className="mb-3"
                             controlId="exampleForm.ControlTextarea1"
                         >
                             <Form.Label>Cover Picture</Form.Label>
-                            <Form.Control style={{display:`${bannerpicUploaded===0?'block':'none'}`}}
+                            <Form.Control style={{ display: `${bannerpicUploaded === 0 ? 'block' : 'none'}` }}
                                 type="file"
 
                                 autoFocus
 
-                                onChange={(e)=>{
+                                onChange={(e) => {
                                     handleUpload2(e.target.files[0]);
                                 }}
                             />
-                            <LinearProgress style={{display:`${bannerpicUploaded!==0 ? 'block' :'none'}`}} variant="determinate" value={bannerpicUploaded} />
+                            <LinearProgress style={{ display: `${bannerpicUploaded !== 0 ? 'block' : 'none'}` }} variant="determinate" value={bannerpicUploaded} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -205,15 +205,15 @@ export default function Profile({ data , setData ,showEdit }) {
                     <div className="texts" >
                         <div className="userhead">
                             <h3 className='usertext'>{data.name} </h3>
-                             { showEdit && <i className="fa-solid fa-pen-to-square edit-user" onClick={handleShow}></i>}
+                            {showEdit && <i className="fa-solid fa-pen-to-square edit-user" onClick={handleShow}></i>}
                         </div>
                         <h6>{data.role}</h6>
                     </div>
                 </div>
 
 
-                <About data={data} setData={setData} showEdit={showEdit}/>
-                <Social data={data} setData={setData} showEdit={showEdit}/>
+                <About data={data} setData={setData} showEdit={showEdit} />
+                <Social data={data} setData={setData} showEdit={showEdit} />
                 <Rooms />
                 <Myposts />
 
