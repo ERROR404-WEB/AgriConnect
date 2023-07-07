@@ -123,7 +123,6 @@ export default function Profile({ data, setData, showEdit }) {
             body: JSON.stringify(eData),
         })
         const data1 = await response.json();
-        console.log(data1);
         setData(data1.user);
         setShow(false);
     }
